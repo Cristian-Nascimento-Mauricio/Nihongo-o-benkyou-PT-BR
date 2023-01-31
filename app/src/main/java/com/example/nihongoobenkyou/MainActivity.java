@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.nihongoobenkyou.ViewPager.Fragments.KanjiScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.articleScreenFragment;
@@ -27,6 +28,47 @@ public class MainActivity extends AppCompatActivity {
         viewPager2  = findViewById(R.id.ViewPager);
 
         configViewPager();
+
+
+
+        binding.buttonArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.ViewPager.setCurrentItem(0);
+
+            }
+        });
+        binding.buttonVocabulary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.ViewPager.setCurrentItem(1);
+
+            }
+        });
+
+        binding.buttonKanji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.ViewPager.setCurrentItem(3);
+
+            }
+        });
+
+        binding.buttonHiragana.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.ViewPager.setCurrentItem(4);
+
+            }
+        });
+
+        binding.buttonMiddle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.ViewPager.setCurrentItem(2);
+            }
+        });
+
     }
 
     private void configViewPager(){
@@ -44,4 +86,6 @@ public class MainActivity extends AppCompatActivity {
         binding.ViewPager.setOffscreenPageLimit(adpter.getItemCount());
 
     }
+
+
 }
