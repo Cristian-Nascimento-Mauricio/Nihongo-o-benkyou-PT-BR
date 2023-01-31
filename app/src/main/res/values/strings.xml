@@ -1,5 +1,10 @@
 <resources>
-    <string name="app_name">Nihongo o Benkyou</string>
+    <string name="app_name" translatable="false">Nihongo o Benkyou</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" >Hello blank fragment</string>
+    <string name="japanese_text_button_1">文法</string>
+    <string name="japanese_text_button_2">言葉</string>
+    <string name="japanese_text_button_3">漢字</string>
+    <string name="japanese_text_button_4">あ</string>
+
 </resources>
