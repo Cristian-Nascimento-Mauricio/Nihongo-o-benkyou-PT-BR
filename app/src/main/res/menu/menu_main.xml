@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_perfil"
+        android:title="Perfil" />
+
+    <item
+        android:id="@+id/menu_configuracao"
+        android:title="Configurações"
+        />
+    <item
+        android:id="@+id/menu_apoiar"
+        android:title="Apoiar projeto"
+        />
+</menu>

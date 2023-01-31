@@ -5,13 +5,18 @@ plugins {
 android {
     compileSdk 32
 
+    buildTypes {
+        debug {
+            pseudoLocalesEnabled true
+        }
+    }
     defaultConfig {
         applicationId "com.example.nihongoobenkyou"
         minSdk 21
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        resConfigs "en","ja_JP"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

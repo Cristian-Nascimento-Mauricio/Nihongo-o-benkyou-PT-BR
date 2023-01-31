@@ -1,10 +1,14 @@
 package com.example.nihongoobenkyou;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toolbar;
 
 import com.example.nihongoobenkyou.ViewPager.Fragments.KanjiScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.articleScreenFragment;
@@ -14,10 +18,12 @@ import com.example.nihongoobenkyou.ViewPager.Fragments.vocabularyScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.ViewPagerAdpter;
 import com.example.nihongoobenkyou.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
 
     ViewPager2  viewPager2;
     private ActivityMainBinding binding;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
         viewPager2  = findViewById(R.id.ViewPager);
 
         configViewPager();
@@ -86,4 +95,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+
+
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.menu_perfil:
+
+                break;
+            case R.id.menu_configuracao:
+
+                break;
+            case R.id.menu_apoiar:
+
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
