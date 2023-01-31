@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         configViewPager();
 
-
-
         binding.buttonArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 binding.ViewPager.setCurrentItem(4);
 
+            }
+        });
+
+        binding.buttonMiddle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.ViewPager.setCurrentItem(2);
             }
         });
 
