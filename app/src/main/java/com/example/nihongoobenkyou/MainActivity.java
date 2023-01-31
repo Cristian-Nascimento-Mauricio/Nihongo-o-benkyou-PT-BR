@@ -62,13 +62,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.buttonMiddle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.ViewPager.setCurrentItem(2);
-            }
-        });
-
     }
 
     private void configViewPager(){

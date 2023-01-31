@@ -7,7 +7,7 @@
     app:circularflow_defaultRadius="@dimen/material_emphasis_disabled"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,105 +15,67 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/ViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="-3dp"
             android:layout_weight="10">
 
         </androidx.viewpager2.widget.ViewPager2>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="0.5"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
             android:background="@drawable/degrade_from_white_to_gray"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button_Article"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/button_activty"
-                android:text="文法"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+            android:gravity="center_vertical"
+            android:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_vocabulary"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/button_Article"
                 android:background="@drawable/button_activty"
                 android:text="言葉"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
-
-            <Space
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_kanji"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/button_hiragana"
                 android:background="@drawable/button_activty"
                 android:text="漢字"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_Article"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_activty"
+                android:text="文法"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_hiragana"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_alignParentRight="true"
+
                 android:layout_marginRight="10dp"
                 android:background="@drawable/button_activty"
                 android:text="あ"
-                android:textSize="24sp"
+                android:textSize="45dp"
                 android:textStyle="bold" />
+        </RelativeLayout>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_middle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/button_japan"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+    </LinearLayout>
 
 </RelativeLayout>
