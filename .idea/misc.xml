@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/pasta_do_aplicativo/app/src/main/res/drawable/button_activty.xml" value="0.185" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/pasta_do_aplicativo/app/src/main/res/drawable/degrade_from_white_to_gray.xml" value="0.185" />
-        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/pasta_do_aplicativo/app/src/main/res/layout/activity_main.xml" value="0.3096446700507614" />
+        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/pasta_do_aplicativo/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/pasta_do_aplicativo/app/src/main/res/layout/fragment_article_screen.xml" value="0.30808080808080807" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/pasta_do_aplicativo/app/src/main/res/layout/fragment_hiragana_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/pasta_do_aplicativo/app/src/main/res/layout/fragment_kanji_screen.xml" value="0.36666666666666664" />
