@@ -5,7 +5,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@android:color/transparent"
     android:id="@+id/toolbar"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
     <TextView
         android:layout_width="wrap_content"
