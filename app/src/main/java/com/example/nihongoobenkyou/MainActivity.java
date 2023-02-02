@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toolbar;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.example.nihongoobenkyou.ViewPager.Fragments.KanjiScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.articleScreenFragment;
@@ -18,6 +19,7 @@ import com.example.nihongoobenkyou.ViewPager.Fragments.vocabularyScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.ViewPagerAdpter;
 import com.example.nihongoobenkyou.databinding.ActivityMainBinding;
 
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +31,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
+
         setContentView(binding.getRoot());
+
 
         toolbar = findViewById(R.id.toolbar);
 
@@ -37,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager2  = findViewById(R.id.ViewPager);
 
         configViewPager();
+
 
         binding.buttonArticle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +85,38 @@ public class MainActivity extends AppCompatActivity {
                 binding.ViewPager.setCurrentItem(2);
             }
         });
+
+    }
+
+
+    private void ofensivas(){
+
+        Calendar calendar = Calendar.getInstance();
+
+        int today = calendar.DAY_OF_MONTH;
+        int day_of_streak = 1;
+        int dayStreak=1;
+
+        if(calendar.YEAR % 4 == 0){
+
+            if(day_of_streak == 366 && today == 1)
+                dayStreak++;
+
+            else if(today - day_of_streak == 1)
+                dayStreak++;
+            else
+                dayStreak = 1;
+
+        }else{
+            if(day_of_streak == 365 && today == 1)
+                dayStreak++;
+
+            else if(today - day_of_streak == 1)
+                dayStreak++;
+            else
+                dayStreak = 1;
+
+        }
 
     }
 
@@ -122,5 +164,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class SHARED_PREF_TIME {
+    }
+
+    private class STREAKS {
     }
 }
