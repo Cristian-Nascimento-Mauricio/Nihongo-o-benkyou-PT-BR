@@ -49,9 +49,52 @@ public class middleScreenfragment extends Fragment {
         binding.recyclerViewMiddle.setAdapter(adpter);
 
 
-        addInList(35,"Texto 0",R.drawable.fire);
-        addInListSeveral(50,"texto 1",R.drawable.fire,
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                   20, "Texto 2", R.drawable.fire);
+        AddInList3(10,"texto 3",R.drawable.fire,
+                   20, "Texto 4", R.drawable.fire,
+                   30,"texto 5",R.drawable.fire);
+        AddInList3(10,"texto 3",R.drawable.fire,
+                20, "Texto 4", R.drawable.fire,
+                30,"texto 5",R.drawable.fire);
+        AddInList3(10,"texto 3",R.drawable.fire,
+                20, "Texto 4", R.drawable.fire,
+                30,"texto 5",R.drawable.fire);
+        AddInList3(10,"texto 3",R.drawable.fire,
+                20, "Texto 4", R.drawable.fire,
+                30,"texto 5",R.drawable.fire);
+        AddInList3(10,"texto 3",R.drawable.fire,
+                20, "Texto 4", R.drawable.fire,
+                30,"texto 5",R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
                 20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+        addInList(35 ,"Texto 0",R.drawable.fire);
+        AddInList2(50,"texto 1",R.drawable.fire,
+                20, "Texto 2", R.drawable.fire);
+
 
 
         return view;
@@ -61,14 +104,14 @@ public class middleScreenfragment extends Fragment {
     private void addInList(int progressBar,String textView,int imagemView){
         Nivels_of_Screen_Middle nivel = new Nivels_of_Screen_Middle(progressBar,textView, imagemView);
 
-        nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>());
+        nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>(1));
         this.nivelsList.get(nivelsList.size() -1 ).add(nivel);
 
     }
-    private void addInListSeveral(int progressBar,String textView,int imagemView,
-                                  int progressBar2,String textView2,int imagemView2){
+    private void AddInList2(int progressBar,String textView,int imagemView,
+                            int progressBar2,String textView2,int imagemView2){
 
-        List<Nivels_of_Screen_Middle> listinha = new ArrayList<>();
+        List<Nivels_of_Screen_Middle> listinha = new ArrayList<>(2);
 
         Nivels_of_Screen_Middle nivel = new Nivels_of_Screen_Middle(progressBar,textView, imagemView);
         listinha.add(nivel);
@@ -78,6 +121,22 @@ public class middleScreenfragment extends Fragment {
         nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>());
         this.nivelsList.get(nivelsList.size()-1).addAll(listinha);
 
+    }
+    private void AddInList3(int progressBar ,String textView ,int imagemView ,
+                            int progressBar2,String textView2,int imagemView2,
+                            int progressBar3,String textView3,int imagemView3){
+
+        List<Nivels_of_Screen_Middle> listinha = new ArrayList<>( 3);
+
+        Nivels_of_Screen_Middle nivel = new Nivels_of_Screen_Middle(progressBar,textView, imagemView);
+        listinha.add(nivel);
+        Nivels_of_Screen_Middle nivel2 = new Nivels_of_Screen_Middle(progressBar2,textView2, imagemView2);
+        listinha.add(nivel2);
+        Nivels_of_Screen_Middle nivel3 = new Nivels_of_Screen_Middle(progressBar3,textView3, imagemView3);
+        listinha.add(nivel3);
+
+        nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>());
+        this.nivelsList.get(nivelsList.size()-1).addAll(listinha);
 
     }
 
