@@ -2,20 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="150dp"
     android:gravity="center"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="130dp"
         android:gravity="center">
 
         <ProgressBar
             android:id="@+id/progressBar_4"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:indeterminateOnly="false"
             android:progress="25"
             android:progressDrawable="@drawable/level_up"
@@ -32,7 +31,7 @@
             android:layout_marginStart="0dp"
             android:gravity="center"
             android:text="Level 1"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -42,7 +41,7 @@
             android:layout_alignStart="@+id/progressBar_4"
             android:layout_alignTop="@id/progressBar_4"
             android:layout_alignEnd="@+id/progressBar_4"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             app:srcCompat="@drawable/fire" />
     </RelativeLayout>
 
@@ -52,13 +51,13 @@
 
     <RelativeLayout
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:gravity="center">
 
         <ProgressBar
             android:id="@+id/progressBar_5"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:indeterminateOnly="false"
             android:progress="25"
             android:progressDrawable="@drawable/level_up"
@@ -75,7 +74,7 @@
             android:layout_marginStart="0dp"
             android:gravity="center"
             android:text="Level 1"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -85,7 +84,7 @@
             android:layout_alignStart="@+id/progressBar_5"
             android:layout_alignTop="@id/progressBar_5"
             android:layout_alignEnd="@+id/progressBar_5"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             app:srcCompat="@drawable/fire" />
     </RelativeLayout>
 
@@ -95,13 +94,13 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="130dp"
         android:gravity="center">
 
         <ProgressBar
             android:id="@+id/progressBar_6"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:indeterminateOnly="false"
             android:progress="25"
             android:progressDrawable="@drawable/level_up"
@@ -118,7 +117,7 @@
             android:layout_marginStart="0dp"
             android:gravity="center"
             android:text="Level 1"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -128,7 +127,7 @@
             android:layout_alignStart="@+id/progressBar_6"
             android:layout_alignTop="@id/progressBar_6"
             android:layout_alignEnd="@+id/progressBar_6"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             app:srcCompat="@drawable/fire" />
     </RelativeLayout>
 </LinearLayout>

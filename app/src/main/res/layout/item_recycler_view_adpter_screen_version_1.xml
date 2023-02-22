@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_activty"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_of_item"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/underline"
+            android:gravity="center"
+            android:text="Título"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/TextPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="さくらさん:あなたはだれですか\nアナさん　:私はアナです　\nさくらさん:おろしくお願いしまうすアナさん"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

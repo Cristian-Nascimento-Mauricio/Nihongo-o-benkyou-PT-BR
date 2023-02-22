@@ -1,5 +1,8 @@
 package com.example.nihongoobenkyou.adpter;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +32,9 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
         TextView textView;
         ImageView imageView;
 
-        public MyviewHolder( View itemView) {
+        public MyviewHolder(View itemView) {
             super(itemView);
+
 
             progressBar = itemView.findViewById(R.id.progressBar_1);
             textView = itemView.findViewById(R.id.textView_1);
@@ -94,8 +98,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
     @Override
     public int getItemViewType(int position) {
 
-        int i = list.get(position).size();
-        return i;
+        return list.get(position).size();
     }
 
     @NonNull
@@ -122,9 +125,12 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
+
+
         if(holder.getItemViewType() == 1){
             Nivels_of_Screen_Middle nivels = list.get(position).get(0);
             MyviewHolder Holder = (MyviewHolder)holder;
+
 
             Holder.progressBar.setProgress(nivels.getProgressBar());
             Holder.textView.setText(nivels.getTextView());

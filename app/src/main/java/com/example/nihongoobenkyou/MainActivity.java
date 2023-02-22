@@ -1,15 +1,25 @@
 package com.example.nihongoobenkyou;
 
+
+import static com.example.nihongoobenkyou.R.color.black;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
+
 
 import com.example.nihongoobenkyou.ViewPager.Fragments.KanjiScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.articleScreenFragment;
@@ -38,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
         setContentView(binding.getRoot());
-
 
         toolbar = findViewById(R.id.toolbar);
 
@@ -85,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
 
@@ -124,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
         binding.ViewPager.setAdapter(adpter);
 
         adpter.addFragment(new articleScreenFragment());
-        adpter.addFragment(new KanjiScreenFragment());
-        adpter.addFragment(new middleScreenfragment());
         adpter.addFragment(new vocabularyScreenFragment());
+        adpter.addFragment(new middleScreenfragment());
+        adpter.addFragment(new KanjiScreenFragment());
         adpter.addFragment(new hiraganaScreenFragment());
 
         binding.ViewPager.setCurrentItem(2);
@@ -165,9 +175,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class SHARED_PREF_TIME {
-    }
 
-    private class STREAKS {
-    }
 }

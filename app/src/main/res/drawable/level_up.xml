@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item>
+    <item
+        android:id="@+id/circle_center"
+        android:gravity="center">
         <shape android:shape="oval">
-            <size android:width="10dp"
-                android:height="10dp"></size>
+            <size android:width="58dp"
+                android:height="58dp"></size>
+            <solid android:color="#E2D5D5"></solid>
 
-            <solid android:color="@color/lightGray">
-
-            </solid>
         </shape>
+
     </item>
 
     <item>
         <shape android:shape="ring"
-            android:thicknessRatio="6"
+            android:thicknessRatio="8"
             android:useLevel="false"
-            android:height="10dp"
-            android:width="10dp">
+            >
 
-
-
-            <corners android:radius="45dp"></corners>
             <solid android:color="@color/white"></solid>
 
         </shape>
@@ -31,14 +28,13 @@
 
     <item>
         <shape android:shape="ring"
-            android:thicknessRatio="6"
+            android:thicknessRatio="8"
             android:useLevel="true">
 
-
-            <corners android:radius="45dp"></corners>
             <solid android:color="#ffff00"></solid>
 
         </shape>
     </item>
+
 
 </layer-list>
