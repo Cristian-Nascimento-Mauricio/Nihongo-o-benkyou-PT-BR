@@ -1,6 +1,7 @@
 package com.example.nihongoobenkyou.ViewPager.Fragments;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -29,7 +30,6 @@ public class middleScreenfragment extends Fragment {
     private FragmentMiddleScreenfragmentBinding binding;
     private List<List<Nivels_of_Screen_Middle>> nivelsList = new ArrayList<>();
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,57 +39,58 @@ public class middleScreenfragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext().getApplicationContext());
         binding.recyclerViewMiddle.setLayoutManager(layoutManager);
 
+
         RecylerViewAdpterScreenMiddle adpter = new RecylerViewAdpterScreenMiddle(nivelsList);
 
         binding.recyclerViewMiddle.setAdapter(adpter);
 
 
 
-        addInList(35 ,"Texto 0", R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                   20, "Texto 2", R.drawable.fire);
+        addInList(0 ,"Texto 0", R.drawable.fire);
+        AddInList2(10,"texto 1",R.drawable.fire,
+                   15, "Texto 2", R.drawable.fire);
+        AddInList3(14,"texto 3",R.drawable.fire,
+                   16, "Texto 4", R.drawable.fire,
+                   20,"texto 5",R.drawable.fire);
+        AddInList3(7,"texto 3",R.drawable.fire,
+                6, "Texto 4", R.drawable.fire,
+                7,"texto 5",R.drawable.fire);
+        AddInList3(8,"texto 3",R.drawable.fire,
+                9, "Texto 4", R.drawable.fire,
+                10,"texto 5",R.drawable.fire);
         AddInList3(10,"texto 3",R.drawable.fire,
-                   20, "Texto 4", R.drawable.fire,
-                   30,"texto 5",R.drawable.fire);
+                10, "Texto 4", R.drawable.fire,
+                10,"texto 5",R.drawable.fire);
         AddInList3(10,"texto 3",R.drawable.fire,
-                20, "Texto 4", R.drawable.fire,
-                30,"texto 5",R.drawable.fire);
-        AddInList3(10,"texto 3",R.drawable.fire,
-                20, "Texto 4", R.drawable.fire,
-                30,"texto 5",R.drawable.fire);
-        AddInList3(10,"texto 3",R.drawable.fire,
-                20, "Texto 4", R.drawable.fire,
-                30,"texto 5",R.drawable.fire);
-        AddInList3(10,"texto 3",R.drawable.fire,
-                20, "Texto 4", R.drawable.fire,
-                30,"texto 5",R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
-        addInList(35 ,"Texto 0",R.drawable.fire);
-        AddInList2(50,"texto 1",R.drawable.fire,
-                20, "Texto 2", R.drawable.fire);
+                10, "Texto 4", R.drawable.fire,
+                20,"texto 5",R.drawable.fire);
+        addInList(20 ,"Texto 0",R.drawable.fire);
+        AddInList2(20,"texto 1",R.drawable.fire,
+                0, "Texto 2", R.drawable.fire);
+        addInList(-1 ,"Texto 0",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
+        addInList(-1 ,"Texto 0",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
+        addInList(-1     ,"Texto 19",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
+        addInList(-1 ,"Texto 0",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
+        addInList(-1 ,"Texto 0",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
+        addInList(-1 ,"Texto 0",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
+        addInList(-1 ,"Texto 0",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
+        addInList(-1 ,"Texto 0",R.drawable.fire);
+        AddInList2(-1,"texto 1",R.drawable.fire,
+                -1, "Texto 2", R.drawable.fire);
 
 
 

@@ -22,13 +22,17 @@ public class RecyclerViewAdpterVocabularyScreen extends RecyclerView.Adapter<Rec
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
-        TextView textpreview;
+        TextView speech,speech2,speech3;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-                title = itemView.findViewById(R.id.title_of_item);
-                textpreview = itemView.findViewById(R.id.TextPreview);
+            title = itemView.findViewById(R.id.title_of_item);
+            speech = itemView.findViewById(R.id.speech);
+            speech2 = itemView.findViewById(R.id.speech2);
+            speech3 = itemView.findViewById(R.id.speech3);
+
+
 
         }
     }
@@ -52,8 +56,9 @@ public class RecyclerViewAdpterVocabularyScreen extends RecyclerView.Adapter<Rec
         Vocabulary_of_Vocabulary_Screen item = list.get(position);
 
         holder.title.setText(item.getTitle());
-        holder.textpreview.setText(item.getTextpresview());
-
+        holder.speech.setText(item.getSpeech());
+        holder.speech2.setText(item.getSpeech2());
+        holder.speech3.setText(item.getSpeech3());
 
 
     }

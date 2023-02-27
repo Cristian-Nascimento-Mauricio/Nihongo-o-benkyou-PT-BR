@@ -27,13 +27,43 @@
             android:textSize="30dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/TextPreview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="さくらさん:あなたはだれですか\nアナさん　:私はアナです　\nさくらさん:おろしくお願いしまうすアナさん"
-            android:textColor="@color/black"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/speech"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="さくらさん: あなたはだれですか"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/speech2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="アナさん　: 私はアナです"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/speech3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="clip_vertical"
+                android:text="さくらさん: おろしくお願いしまうすアナさん"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

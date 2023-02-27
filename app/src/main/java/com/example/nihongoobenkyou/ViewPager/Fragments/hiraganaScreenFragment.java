@@ -3,6 +3,8 @@ package com.example.nihongoobenkyou.ViewPager.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -15,6 +17,9 @@ import com.example.nihongoobenkyou.ViewPager.FragmentHiraganaKatakana.KatakanaFr
 import com.example.nihongoobenkyou.ViewPager.ViewPagerAdpter;
 import com.example.nihongoobenkyou.databinding.FragmentHiraganaScreenBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class hiraganaScreenFragment extends Fragment {
@@ -33,6 +38,7 @@ public class hiraganaScreenFragment extends Fragment {
         return view;
     }
 
+
     private void configViewPager(){
         ViewPagerAdpter adpter = new ViewPagerAdpter(getActivity());
         binding.HiraganaViewPager.setAdapter(adpter);
@@ -47,6 +53,7 @@ public class hiraganaScreenFragment extends Fragment {
         TabLayoutMediator mediator = new TabLayoutMediator(binding.tabLayout,binding.HiraganaViewPager,
                 ((tab, position) -> {
                   tab.setText(adpter.getTitle(position));
+
                 }));
         mediator.attach();
 

@@ -17,6 +17,7 @@
             android:layout_height="100dp"
             android:indeterminateOnly="false"
             android:progress="25"
+            android:background="@drawable/level_up_background"
             android:progressDrawable="@drawable/level_up"
             android:rotation="-90"></ProgressBar>
 
@@ -60,6 +61,7 @@
             android:layout_height="100dp"
             android:indeterminateOnly="false"
             android:progress="25"
+            android:background="@drawable/level_up_background"
             android:progressDrawable="@drawable/level_up"
             android:rotation="-90"></ProgressBar>
 
@@ -103,6 +105,7 @@
             android:layout_height="100dp"
             android:indeterminateOnly="false"
             android:progress="25"
+            android:background="@drawable/level_up_background"
             android:progressDrawable="@drawable/level_up"
             android:rotation="-90"></ProgressBar>
 

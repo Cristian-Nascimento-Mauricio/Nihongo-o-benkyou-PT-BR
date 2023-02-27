@@ -6,19 +6,26 @@ import static com.example.nihongoobenkyou.R.color.black;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 
 import com.example.nihongoobenkyou.ViewPager.Fragments.KanjiScreenFragment;
@@ -41,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
 
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -94,38 +102,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.ofensiva.setText(String.valueOf(ofensivas()));
 
     }
 
 
-    private void ofensivas(){
+    private int ofensivas(){
 
-        Calendar calendar = Calendar.getInstance();
+        final String ARQUIVO = "dateOfUser";
+        final String LastDaykey = "LastDayOfStreak";
+        final String Daykey = "DayStreak";
 
-        int today = calendar.DAY_OF_MONTH;
-        int day_of_streak = 1;
-        int dayStreak=1;
+        SharedPreferences preferences = getSharedPreferences(ARQUIVO,0);
+        SharedPreferences.Editor editor = preferences.edit();
+        Boolean sixth_year = false;
 
-        if(calendar.YEAR % 4 == 0){
+        if(preferences.contains(LastDaykey) & preferences.contains(Daykey)) {
 
-            if(day_of_streak == 366 && today == 1)
+            Calendar calendar = Calendar.getInstance();
+
+            int Last_day_of_streak = preferences.getInt(LastDaykey,-1);
+            int dayStreak = preferences.getInt(Daykey,-1);
+
+            int today = calendar.get(calendar.DAY_OF_YEAR);
+
+            if(calendar.get(calendar.YEAR) % 4 == 0)
+                sixth_year = true;
+
+            if ( (Last_day_of_streak == 366 && today == 1 && sixth_year) || (today - Last_day_of_streak == 1) || (Last_day_of_streak == 365 && today == 1))
                 dayStreak++;
 
-            else if(today - day_of_streak == 1)
-                dayStreak++;
             else
                 dayStreak = 1;
 
-        }else{
-            if(day_of_streak == 365 && today == 1)
-                dayStreak++;
+            Last_day_of_streak = today;
 
-            else if(today - day_of_streak == 1)
-                dayStreak++;
-            else
-                dayStreak = 1;
+            editor.putInt(LastDaykey,Last_day_of_streak);
+            editor.putInt(Daykey,dayStreak);
+            editor.commit();
+
+            editor.commit();
+            }else{
+
+            editor.putInt(LastDaykey,1);
+            editor.putInt(Daykey,1);
+
+            editor.commit();
+
+            ofensivas();
 
         }
+
+        return preferences.getInt(Daykey,-1);
 
     }
 

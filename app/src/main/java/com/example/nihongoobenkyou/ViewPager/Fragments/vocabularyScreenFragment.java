@@ -38,9 +38,12 @@ public class vocabularyScreenFragment extends Fragment {
 
         binding.recyclerViewVocabulary.setAdapter(adpter);
 
-        Vocabulary_of_Vocabulary_Screen n = new Vocabulary_of_Vocabulary_Screen("Título",
-                "さくらさん:あなたはだれですか\nアナさん　:私はアナです　\nさくらさん:おろしくお願いしまうすアナさん"
-);
+        Vocabulary_of_Vocabulary_Screen n = new Vocabulary_of_Vocabulary_Screen(
+                "Título",
+                "さくらさん: あなたはだれですか" ,
+                "アナさん　: 私はアナです",
+                "さくらさん: おろしくお願いしまうすアナさん" );
+
         list.add(n);
         list.add(n);
         list.add(n);
