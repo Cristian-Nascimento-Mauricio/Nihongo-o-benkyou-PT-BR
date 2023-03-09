@@ -126,10 +126,13 @@ public class MainActivity extends AppCompatActivity {
 
             int today = calendar.get(calendar.DAY_OF_YEAR);
 
+            if (today == Last_day_of_streak)
+                return preferences.getInt(Daykey,-1);
+
             if(calendar.get(calendar.YEAR) % 4 == 0)
                 sixth_year = true;
 
-            if ( ((Last_day_of_streak == 366 && today == 1 )&& sixth_year) || (today - Last_day_of_streak == 1) || (Last_day_of_streak == 365 && today == 1))
+            if ( ((Last_day_of_streak == 366 && today == 1 )&& sixth_year) || (today - Last_day_of_streak == 1) || (Last_day_of_streak == 365 && today == 1) )
                     dayStreak++;
 
             else
@@ -203,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

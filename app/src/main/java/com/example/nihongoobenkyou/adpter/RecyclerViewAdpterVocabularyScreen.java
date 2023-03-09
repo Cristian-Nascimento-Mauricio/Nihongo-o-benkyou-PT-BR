@@ -32,8 +32,6 @@ public class RecyclerViewAdpterVocabularyScreen extends RecyclerView.Adapter<Rec
             speech2 = itemView.findViewById(R.id.speech2);
             speech3 = itemView.findViewById(R.id.speech3);
 
-
-
         }
     }
 
@@ -59,7 +57,6 @@ public class RecyclerViewAdpterVocabularyScreen extends RecyclerView.Adapter<Rec
         holder.speech.setText(item.getSpeech());
         holder.speech2.setText(item.getSpeech2());
         holder.speech3.setText(item.getSpeech3());
-
 
     }
 

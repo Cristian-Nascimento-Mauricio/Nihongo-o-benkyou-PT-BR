@@ -52,9 +52,12 @@ public class vocabularyScreenFragment extends Fragment {
         list.add(n);
         list.add(n);
 
-
-
         return view;
 
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

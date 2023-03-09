@@ -135,5 +135,10 @@ public class middleScreenfragment extends Fragment {
         this.nivelsList.get(nivelsList.size()-1).addAll(listinha);
 
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 
 }

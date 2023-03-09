@@ -5,28 +5,54 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nihongoobenkyou.R;
+import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterArticles;
+import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterKanji;
+import com.example.nihongoobenkyou.classes.Articles_of_Article_Screen;
+import com.example.nihongoobenkyou.databinding.FragmentArticleScreenBinding;
+import com.example.nihongoobenkyou.databinding.FragmentKanjiScreenBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class articleScreenFragment extends Fragment {
 
+    private FragmentArticleScreenBinding binding;
+    private List<Articles_of_Article_Screen> list = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_article_screen, container, false);
+        binding = FragmentArticleScreenBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext().getApplicationContext());
+        binding.recyclerViewArticle.setLayoutManager(layoutManager);
+        RecyclerViewAdpterArticles adpter = new RecyclerViewAdpterArticles(list);
+
+        binding.recyclerViewArticle.setAdapter(adpter);
+
+        list.add(new Articles_of_Article_Screen("Partículas", "A particulas é parte importante " +
+                "da gramatica da lingua japonesas, é a principal caracterista que diferencia da gramatica chinesas"));
+
+
+        return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View  view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
+
+
 
 }

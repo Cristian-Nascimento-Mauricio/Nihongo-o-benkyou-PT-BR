@@ -1,69 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="210dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/button_activty"
     android:layout_gravity="center_horizontal"
     android:gravity="center">
+
+    <TextView
+        android:id="@+id/title_of_item"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/underline"
+        android:gravity="center"
+        android:text="Título"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/button_activty"
-        android:gravity="center_horizontal"
+        android:layout_margin="5dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title_of_item"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/underline"
-            android:gravity="center"
-            android:text="Título"
-            android:textColor="@color/black"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-        <LinearLayout
+            android:id="@+id/speech"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="さくらさん: あなたはだれですか"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/speech"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="さくらさん: あなたはだれですか"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/speech2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="アナさん　: 私はアナです"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/speech2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="アナさん　: 私はアナです"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/speech3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="clip_vertical"
-                android:text="さくらさん: おろしくお願いしまうすアナさん"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/speech3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="clip_vertical"
+            android:text="さくらさん: おろしくお願いしまうすアナさん"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>

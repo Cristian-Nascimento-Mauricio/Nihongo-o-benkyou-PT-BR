@@ -137,6 +137,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        Log.e("position", "position: " + position);
 
         if(holder.getItemViewType() == 1){
             Nivels_of_Screen_Middle nivels = list.get(position).get(0);
@@ -144,16 +145,9 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
             Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC);
 
-            if(nivels.getColor() == Color.GRAY) {
-                Drawable drawable = Holder.context.getResources().getDrawable(R.drawable.level_up_gray);
-                Holder.progressBar.setProgressDrawable(drawable);
-            }
-
-
             Holder.progressBar.setProgress(nivels.getProgressBar());
             Holder.textView.setText(nivels.toString());
             Holder.imageView.setImageResource(nivels.getImageView());
-
 
         } else if(holder.getItemViewType() == 2){
 
@@ -163,12 +157,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
             MyviewHolder_2 Holder = (MyviewHolder_2)holder;
 
             Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC_ATOP);
-            if(nivels.getColor() == Color.GRAY) {
-                Drawable drawable = Holder.context.getResources().getDrawable(R.drawable.level_up_gray);
-                Holder.progressBar.setProgressDrawable(drawable);
-                Holder.progressBar2.setProgressDrawable(drawable);
 
-            }
             Holder.progressBar.setProgress(nivels.getProgressBar());
             Holder.textView.setText(nivels.toString());
             Holder.imageView.setImageResource(nivels.getImageView());
@@ -189,12 +178,6 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
             Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC_ATOP);
 
-            if(nivels.getColor() == Color.GRAY) {
-                Drawable drawable = Holder.context.getResources().getDrawable(R.drawable.level_up_gray);
-                Holder.progressBar.setProgressDrawable(drawable);
-                Holder.progressBar2.setProgressDrawable(drawable);
-                Holder.progressBar3.setProgressDrawable(drawable);
-            }
             Holder.progressBar.setProgress(nivels.getProgressBar());
             Holder.textView.setText(nivels.toString());
             Holder.imageView.setImageResource(nivels.getImageView());
@@ -211,18 +194,14 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
             Holder.textView3.setText(nivels3.toString());
             Holder.imageView3.setImageResource(nivels3.getImageView());
 
-
         }
 
-
     }
-
 
     @Override
     public int getItemCount() {
 
         return this.list.size();
     }
-
 
 }
