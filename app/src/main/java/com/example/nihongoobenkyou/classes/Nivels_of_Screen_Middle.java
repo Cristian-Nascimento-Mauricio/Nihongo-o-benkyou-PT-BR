@@ -12,7 +12,7 @@ import com.example.nihongoobenkyou.R;
 public class Nivels_of_Screen_Middle {
 
 
-    private int progressBar;
+    private int progressBar =0;
     private String textView;
     private int imageView;
 
@@ -26,6 +26,9 @@ public class Nivels_of_Screen_Middle {
         this.textView = textView;
         this.imageView = imageView;
     }
+    public int getlevel(){
+        return progressBar;
+    }
 
     public int getProgressBar() {
 
@@ -33,24 +36,24 @@ public class Nivels_of_Screen_Middle {
     }
     public int getColor(){
 
-        if(progressBar < 0){
+        if(progressBar < 0)
             return Color.GRAY;
-        }else if(progressBar < 5){
+
+        else if(progressBar < 5)
             return Color.WHITE;
 
-        }else if(progressBar < 10){
+        else if(progressBar < 10)
             return Color.GREEN;
 
-        }else if(progressBar  < 15){
+        else if(progressBar  < 15)
             return Color.BLUE;
 
-        }else if (progressBar < 20){
+        else if (progressBar < 20)
             return Color.RED;
 
-        }else{
+        else
             return Color.YELLOW;
 
-        }
 
     }
 
