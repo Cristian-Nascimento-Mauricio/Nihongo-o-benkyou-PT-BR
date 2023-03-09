@@ -129,13 +129,14 @@ public class MainActivity extends AppCompatActivity {
             if(calendar.get(calendar.YEAR) % 4 == 0)
                 sixth_year = true;
 
-            if ( (Last_day_of_streak == 366 && today == 1 && sixth_year) || (today - Last_day_of_streak == 1) || (Last_day_of_streak == 365 && today == 1))
-                dayStreak++;
+            if ( ((Last_day_of_streak == 366 && today == 1 )&& sixth_year) || (today - Last_day_of_streak == 1) || (Last_day_of_streak == 365 && today == 1))
+                    dayStreak++;
 
             else
                 dayStreak = 1;
 
             Last_day_of_streak = today;
+
 
             editor.putInt(LastDaykey,Last_day_of_streak);
             editor.putInt(Daykey,dayStreak);
