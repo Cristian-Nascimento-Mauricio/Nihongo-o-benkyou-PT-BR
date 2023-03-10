@@ -35,6 +35,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
         TextView textView;
         ImageView imageView;
         Context context;
+
         public MyviewHolder(View itemView) {
             super(itemView);
             context = itemView.getContext();
@@ -46,45 +47,34 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
     }
     public class MyviewHolder_2 extends RecyclerView.ViewHolder{
-        ProgressBar progressBar;
-        TextView textView;
-        ImageView imageView;
+
+        ProgressBar[] progressBars = new ProgressBar[2];
+        TextView[] textViews = new TextView[2];
+        ImageView[] imageViews = new  ImageView[2];
         Context context;
-
-        ProgressBar progressBar2;
-        TextView textView2;
-        ImageView imageView2;
-
 
         public MyviewHolder_2(View itemView) {
             super(itemView);
 
             context = itemView.getContext();
 
-            progressBar = itemView.findViewById(R.id.progressBar_2);
-            textView = itemView.findViewById(R.id.textView_2);
-            imageView = itemView.findViewById(R.id.imageView_2);
+            progressBars[0] = itemView.findViewById(R.id.progressBar_2);
+            textViews[0] = itemView.findViewById(R.id.textView_2);
+            imageViews[0] = itemView.findViewById(R.id.imageView_2);
 
-            progressBar2 = itemView.findViewById(R.id.progressBar_3);
-            textView2 = itemView.findViewById(R.id.textView_3);
-            imageView2 = itemView.findViewById(R.id.imageView_3);
+            progressBars[1] = itemView.findViewById(R.id.progressBar_3);
+            textViews[1] = itemView.findViewById(R.id.textView_3);
+            imageViews[1] = itemView.findViewById(R.id.imageView_3);
 
         }
 
 
     }
     public class MyviewHolder_3 extends RecyclerView.ViewHolder{
-        ProgressBar progressBar;
-        TextView textView;
-        ImageView imageView;
 
-        ProgressBar progressBar2;
-        TextView textView2;
-        ImageView imageView2;
-
-        ProgressBar progressBar3;
-        TextView textView3;
-        ImageView imageView3;
+        ProgressBar[] progressBars = new ProgressBar[3];
+        TextView[] textViews = new TextView[3];
+        ImageView[] imageViews = new  ImageView[3];
 
         Context context;
 
@@ -93,17 +83,19 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
             super(itemView);
             context = itemView.getContext();
 
-            progressBar = itemView.findViewById(R.id.progressBar_4);
-            textView = itemView.findViewById(R.id.textView_4);
-            imageView = itemView.findViewById(R.id.imageView_4);
 
-            progressBar2 = itemView.findViewById(R.id.progressBar_5);
-            textView2 = itemView.findViewById(R.id.textView_5);
-            imageView2 = itemView.findViewById(R.id.imageView_5);
 
-            progressBar3 = itemView.findViewById(R.id.progressBar_6);
-            textView3 = itemView.findViewById(R.id.textView_6);
-            imageView3 = itemView.findViewById(R.id.imageView_6);
+            progressBars[0] = itemView.findViewById(R.id.progressBar_4);
+            textViews[0] = itemView.findViewById(R.id.textView_4);
+            imageViews[0] = itemView.findViewById(R.id.imageView_4);
+
+            progressBars[1] = itemView.findViewById(R.id.progressBar_5);
+            textViews[1] = itemView.findViewById(R.id.textView_5);
+            imageViews[1] = itemView.findViewById(R.id.imageView_5);
+
+            progressBars[2] = itemView.findViewById(R.id.progressBar_6);
+            textViews[2]= itemView.findViewById(R.id.textView_6);
+            imageViews[2] = itemView.findViewById(R.id.imageView_6);
 
         }
 
@@ -136,8 +128,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        Log.e("position", "position: " + position);
+        int positionOfList = 0;
 
         if(holder.getItemViewType() == 1){
             Nivels_of_Screen_Middle nivels = list.get(position).get(0);
@@ -146,53 +137,46 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
             Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC);
 
             Holder.progressBar.setProgress(nivels.getProgressBar());
+            Holder.imageView.setImageDrawable(nivels.getImageView());;
             Holder.textView.setText(nivels.toString());
-            Holder.imageView.setImageResource(nivels.getImageView());
+
 
         } else if(holder.getItemViewType() == 2){
+            Nivels_of_Screen_Middle[] nivels = new Nivels_of_Screen_Middle[2];
 
-            Nivels_of_Screen_Middle nivels  = list.get(position).get(0);
-            Nivels_of_Screen_Middle nivels2 = list.get(position).get(1);
+            nivels[0]  = list.get(position).get(0);
+            nivels[1]  = list.get(position).get(1);
 
             MyviewHolder_2 Holder = (MyviewHolder_2)holder;
 
-            Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC_ATOP);
+            for ( Nivels_of_Screen_Middle item: nivels) {
+                Holder.progressBars[positionOfList].getBackground().setColorFilter(item.getColor(),PorterDuff.Mode.SRC_ATOP);
 
-            Holder.progressBar.setProgress(nivels.getProgressBar());
-            Holder.textView.setText(nivels.toString());
-            Holder.imageView.setImageResource(nivels.getImageView());
+                Holder.progressBars[positionOfList].setProgress(item.getProgressBar());
+                Holder.textViews[positionOfList].setText(item.toString());
+                Holder.imageViews[positionOfList].setImageDrawable(item.getImageView());
+                positionOfList++;
+            }
 
-            Holder.progressBar2.getBackground().setColorFilter(nivels2.getColor(),PorterDuff.Mode.SRC_ATOP);
-
-            Holder.progressBar2.setProgress(nivels2.getProgressBar());
-            Holder.textView2.setText(nivels2.toString());
-            Holder.imageView2.setImageResource(nivels2.getImageView());
 
         } else if(holder.getItemViewType() == 3){
 
-            Nivels_of_Screen_Middle nivels  = list.get(position).get(0);
-            Nivels_of_Screen_Middle nivels2 = list.get(position).get(1);
-            Nivels_of_Screen_Middle nivels3 = list.get(position).get(2);
+            Nivels_of_Screen_Middle[] nivels = new Nivels_of_Screen_Middle[3];
+
+            nivels[0]  = list.get(position).get(0);
+            nivels[1]  = list.get(position).get(1);
+            nivels[2]  = list.get(position).get(2);
 
             MyviewHolder_3 Holder = (MyviewHolder_3)holder;
 
-            Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC_ATOP);
+            for ( Nivels_of_Screen_Middle item: nivels) {
+                Holder.progressBars[positionOfList].getBackground().setColorFilter(item.getColor(),PorterDuff.Mode.SRC_ATOP);
 
-            Holder.progressBar.setProgress(nivels.getProgressBar());
-            Holder.textView.setText(nivels.toString());
-            Holder.imageView.setImageResource(nivels.getImageView());
-
-            Holder.progressBar2.getBackground().setColorFilter(nivels2.getColor(),PorterDuff.Mode.SRC_ATOP);
-
-            Holder.progressBar2.setProgress(nivels2.getProgressBar());
-            Holder.textView2.setText(nivels2.toString());
-            Holder.imageView2.setImageResource(nivels2.getImageView());
-
-            Holder.progressBar3.getBackground().setColorFilter(nivels3.getColor(),PorterDuff.Mode.SRC_ATOP);
-
-            Holder.progressBar3.setProgress(nivels3.getProgressBar());
-            Holder.textView3.setText(nivels3.toString());
-            Holder.imageView3.setImageResource(nivels3.getImageView());
+                Holder.progressBars[positionOfList].setProgress(item.getProgressBar());
+                Holder.textViews[positionOfList].setText(item.toString());
+                Holder.imageViews[positionOfList].setImageDrawable(item.getImageView());
+                positionOfList++;
+            }
 
         }
 

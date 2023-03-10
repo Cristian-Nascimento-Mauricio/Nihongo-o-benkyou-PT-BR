@@ -2,6 +2,7 @@ package com.example.nihongoobenkyou.ViewPager.Fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -10,11 +11,15 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
+import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.adpter.RecylerViewAdpterScreenMiddle;
 import com.example.nihongoobenkyou.classes.Nivels_of_Screen_Middle;
@@ -22,8 +27,8 @@ import com.example.nihongoobenkyou.databinding.FragmentMiddleScreenfragmentBindi
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.locks.Condition;
-
 
 public class middleScreenfragment extends Fragment {
 
@@ -39,100 +44,37 @@ public class middleScreenfragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext().getApplicationContext());
         binding.recyclerViewMiddle.setLayoutManager(layoutManager);
 
-
         RecylerViewAdpterScreenMiddle adpter = new RecylerViewAdpterScreenMiddle(nivelsList);
 
         binding.recyclerViewMiddle.setAdapter(adpter);
 
+        Controller controller = new Controller(view.getContext());
 
+        Drawable drawable = view.getContext().getResources().getDrawable(R.drawable.fire);
 
-        addInList(0 ,"Texto 0", R.drawable.fire);
-        AddInList2(10,"texto 1",R.drawable.fire,
-                   15, "Texto 2", R.drawable.fire);
-        AddInList3(14,"texto 3",R.drawable.fire,
-                   16, "Texto 4", R.drawable.fire,
-                   20,"texto 5",R.drawable.fire);
-        AddInList3(7,"texto 3",R.drawable.fire,
-                6, "Texto 4", R.drawable.fire,
-                7,"texto 5",R.drawable.fire);
-        AddInList3(8,"texto 3",R.drawable.fire,
-                9, "Texto 4", R.drawable.fire,
-                10,"texto 5",R.drawable.fire);
-        AddInList3(10,"texto 3",R.drawable.fire,
-                10, "Texto 4", R.drawable.fire,
-                10,"texto 5",R.drawable.fire);
-        AddInList3(10,"texto 3",R.drawable.fire,
-                10, "Texto 4", R.drawable.fire,
-                20,"texto 5",R.drawable.fire);
-        addInList(20 ,"Texto 0",R.drawable.fire);
-        AddInList2(20,"texto 1",R.drawable.fire,
-                0, "Texto 2", R.drawable.fire);
-        addInList(-1 ,"Texto 0",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-        addInList(-1 ,"Texto 0",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-        addInList(-1     ,"Texto 19",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-        addInList(-1 ,"Texto 0",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-        addInList(-1 ,"Texto 0",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-        addInList(-1 ,"Texto 0",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-        addInList(-1 ,"Texto 0",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-        addInList(-1 ,"Texto 0",R.drawable.fire);
-        AddInList2(-1,"texto 1",R.drawable.fire,
-                -1, "Texto 2", R.drawable.fire);
-
-
+        orderList(controller.Selecionar());
 
         return view;
 
     }
-    private void addInList(int progressBar,String textView,int imagemView){
-        Nivels_of_Screen_Middle nivel = new Nivels_of_Screen_Middle(progressBar,textView, imagemView);
 
-        nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>(1));
-        this.nivelsList.get(nivelsList.size() -1 ).add(nivel);
+    private void orderList(List<Nivels_of_Screen_Middle> list){
+        byte[] ordenacao = { 1 , 2 , 3 , 3 , 2 , 2 , 1 , 1 , 2 , 3 , 1, 3 , 3 , 3 , 2 , 2 , 2 , 3 , 1 , 2 , 3 , 2 , 2 , 2 , 1 , 1 };
+        int postion = 0;
 
-    }
-    private void AddInList2(int progressBar,String textView,int imagemView,
-                            int progressBar2,String textView2,int imagemView2){
+        for (int item:ordenacao) {
+            List<Nivels_of_Screen_Middle> organization = new ArrayList<>(3);
 
-        List<Nivels_of_Screen_Middle> listinha = new ArrayList<>(2);
+            for(int i = 0; i < item;i++)
+                organization.add(list.get(postion+i));
 
-        Nivels_of_Screen_Middle nivel = new Nivels_of_Screen_Middle(progressBar,textView, imagemView);
-        listinha.add(nivel);
-        Nivels_of_Screen_Middle nivel2 = new Nivels_of_Screen_Middle(progressBar2,textView2, imagemView2);
-        listinha.add(nivel2);
+            nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>());
+            this.nivelsList.get(nivelsList.size()-1).addAll(organization);
 
-        nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>());
-        this.nivelsList.get(nivelsList.size()-1).addAll(listinha);
+            organization.clear();
 
-    }
-    private void AddInList3(int progressBar ,String textView ,int imagemView ,
-                            int progressBar2,String textView2,int imagemView2,
-                            int progressBar3,String textView3,int imagemView3){
-
-        List<Nivels_of_Screen_Middle> listinha = new ArrayList<>( 3);
-
-        Nivels_of_Screen_Middle nivel = new Nivels_of_Screen_Middle(progressBar,textView, imagemView);
-        listinha.add(nivel);
-        Nivels_of_Screen_Middle nivel2 = new Nivels_of_Screen_Middle(progressBar2,textView2, imagemView2);
-        listinha.add(nivel2);
-        Nivels_of_Screen_Middle nivel3 = new Nivels_of_Screen_Middle(progressBar3,textView3, imagemView3);
-        listinha.add(nivel3);
-
-        nivelsList.add(new ArrayList<Nivels_of_Screen_Middle>());
-        this.nivelsList.get(nivelsList.size()-1).addAll(listinha);
+            postion+=item;
+        }
 
     }
     @Override
