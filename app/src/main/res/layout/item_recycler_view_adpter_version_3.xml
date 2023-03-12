@@ -42,8 +42,7 @@
             android:layout_alignStart="@+id/progressBar_4"
             android:layout_alignTop="@id/progressBar_4"
             android:layout_alignEnd="@+id/progressBar_4"
-            android:layout_marginTop="25dp"
-            app:srcCompat="@drawable/fire" />
+            android:layout_marginTop="25dp" />
     </RelativeLayout>
 
     <Space
@@ -86,8 +85,7 @@
             android:layout_alignStart="@+id/progressBar_5"
             android:layout_alignTop="@id/progressBar_5"
             android:layout_alignEnd="@+id/progressBar_5"
-            android:layout_marginTop="25dp"
-            app:srcCompat="@drawable/fire" />
+            android:layout_marginTop="25dp" />
     </RelativeLayout>
 
     <Space
@@ -130,7 +128,6 @@
             android:layout_alignStart="@+id/progressBar_6"
             android:layout_alignTop="@id/progressBar_6"
             android:layout_alignEnd="@+id/progressBar_6"
-            android:layout_marginTop="25dp"
-            app:srcCompat="@drawable/fire" />
+            android:layout_marginTop="25dp" />
     </RelativeLayout>
 </LinearLayout>

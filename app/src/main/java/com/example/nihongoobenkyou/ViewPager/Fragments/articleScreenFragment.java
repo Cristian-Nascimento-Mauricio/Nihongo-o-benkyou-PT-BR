@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterArticles;
 import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterKanji;
@@ -38,11 +39,11 @@ public class articleScreenFragment extends Fragment {
         binding.recyclerViewArticle.setLayoutManager(layoutManager);
         RecyclerViewAdpterArticles adpter = new RecyclerViewAdpterArticles(list);
 
+        Controller controller = new Controller(view.getContext());
+
         binding.recyclerViewArticle.setAdapter(adpter);
 
-        list.add(new Articles_of_Article_Screen("Partículas", "A particulas é parte importante " +
-                "da gramatica da lingua japonesas, é a principal caracterista que diferencia da gramatica chinesas"));
-
+        list.addAll(controller.SelecionarArtigo());
 
         return view;
     }

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterVocabularyScreen;
 import com.example.nihongoobenkyou.classes.Vocabulary_of_Vocabulary_Screen;
@@ -31,26 +32,15 @@ public class vocabularyScreenFragment extends Fragment {
         binding = FragmentVocabularyScreenBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
 
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext().getApplicationContext());
         binding.recyclerViewVocabulary.setLayoutManager(layoutManager);
         RecyclerViewAdpterVocabularyScreen adpter = new RecyclerViewAdpterVocabularyScreen(list);
 
         binding.recyclerViewVocabulary.setAdapter(adpter);
 
-        Vocabulary_of_Vocabulary_Screen n = new Vocabulary_of_Vocabulary_Screen(
-                "Título",
-                "さくらさん: あなたはだれですか" ,
-                "アナさん　: 私はアナです",
-                "さくらさん: おろしくお願いしまうすアナさん" );
+        Controller controller = new Controller(view.getContext());
 
-        list.add(n);
-        list.add(n);
-        list.add(n);
-        list.add(n);
-        list.add(n);
-        list.add(n);
-        list.add(n);
+        list.addAll(controller.SelecionarVocabulario());
 
         return view;
 

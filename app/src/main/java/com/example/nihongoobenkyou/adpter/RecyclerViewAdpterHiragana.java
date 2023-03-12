@@ -1,13 +1,18 @@
 package com.example.nihongoobenkyou.adpter;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.google.android.material.transition.Hold;
 
@@ -20,47 +25,52 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
     public class MyviewHolder extends RecyclerView.ViewHolder{
 
-        Button btn_1 , btn_2 , btn_3 , btn_4 , btn_5;
-
+        Controller controller;
+        Context  context;
+        Button[] button = new Button[5];
+        MediaPlayer[] mediaPlayers = new MediaPlayer[5];
         public MyviewHolder(View itemView) {
             super(itemView);
 
-            btn_1 = itemView.findViewById(R.id.button);
-            btn_2 = itemView.findViewById(R.id.button2);
-            btn_3 = itemView.findViewById(R.id.button3);
-            btn_4 = itemView.findViewById(R.id.button4);
-            btn_5 = itemView.findViewById(R.id.button5);
+            controller = new Controller(itemView.getContext());
+            context = itemView.getContext();
+
+            button[0] = itemView.findViewById(R.id.button);
+            button[1] = itemView.findViewById(R.id.button2);
+            button[2] = itemView.findViewById(R.id.button3);
+            button[3] = itemView.findViewById(R.id.button4);
+            button[4] = itemView.findViewById(R.id.button5);
 
         }
     }
     public class MyviewHolder2 extends RecyclerView.ViewHolder{
-        Button btn_1 , btn_2 , btn_3;
+        Button[] buttons = new Button[3];
 
         public MyviewHolder2(View itemView) {
             super(itemView);
 
-            btn_1 = itemView.findViewById(R.id.button6);
-            btn_2 = itemView.findViewById(R.id.button7);
-            btn_3 = itemView.findViewById(R.id.button8);
+            buttons[0] = itemView.findViewById(R.id.button6);
+            buttons[1] = itemView.findViewById(R.id.button7);
+            buttons[2] = itemView.findViewById(R.id.button8);
         }
     }
     public class MyviewHolder3 extends RecyclerView.ViewHolder{
-        Button btn_1 , btn_2;
+        Button[] buttons = new Button[2];
 
         public MyviewHolder3(View itemView) {
             super(itemView);
 
-            btn_1 = itemView.findViewById(R.id.button9);
-            btn_2 = itemView.findViewById(R.id.button10);
+            buttons[0] = itemView.findViewById(R.id.button9);
+            buttons[1] = itemView.findViewById(R.id.button10);
         }
     }
     public class MyviewHolder4 extends RecyclerView.ViewHolder{
-        Button btn_1;
+        Button button;
 
         public MyviewHolder4(View itemView) {
             super(itemView);
 
-            btn_1 = itemView.findViewById(R.id.button11);
+            button = itemView.findViewById(R.id.button11);
 
         }
     }
@@ -83,6 +93,7 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
 
         if(viewType == 5){
 
@@ -112,56 +123,72 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+
         if(holder.getItemViewType() == 5){
-            String text = this.list.get(position).get(0).toString();
-            String text_2 = this.list.get(position).get(1).toString();
-            String text_3 = this.list.get(position).get(2).toString();
-            String text_4 = this.list.get(position).get(3).toString();
-            String text_5 = this.list.get(position).get(4).toString();
+            String[] string = new String[5];
+
+            for(int i =0; i < 5;i++)
+                string[i] = this.list.get(position).get(i).toString();
 
             MyviewHolder Holder = (MyviewHolder) holder;
 
-            Holder.btn_1.setText(text);
-            Holder.btn_2.setText(text_2);
-            Holder.btn_3.setText(text_3);
-            Holder.btn_4.setText(text_4);
-            Holder.btn_5.setText(text_5);
+            for (int i = 0; i < 5; i++)
+                Holder.button[i].setText(string[i]);
+
+
+            for (int i = 0;i < 5;i++){
+                Holder.mediaPlayers[i] = MediaPlayer.create(Holder.context,getAudio(string[0]));
+                Holder.button[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Holder.mediaPlayers[2].start();
+                    }
+                });
+            }
 
 
         }else if(holder.getItemViewType() == 3){
-            String text = this.list.get(position).get(0).toString();
-            String text_2 = this.list.get(position).get(1).toString();
-            String text_3 = this.list.get(position).get(2).toString();
+
+            String[] string = new String[5];
+
+            for(int i =0; i < 3;i++)
+                string[i] = this.list.get(position).get(i).toString();
 
             MyviewHolder2 Holder = (MyviewHolder2) holder;
 
-            Holder.btn_1.setText(text);
-            Holder.btn_2.setText(text_2);
-            Holder.btn_3.setText(text_3);
+            for (int i = 0; i < 3; i++)
+                Holder.buttons[i].setText(string[i]);
 
         }else if(holder.getItemViewType() == 2){
-            String text = this.list.get(position).get(0).toString();
-            String text_2 = this.list.get(position).get(1).toString();
+
+            String[] strings = new String[2];
+
+            strings[0] = this.list.get(position).get(0).toString();
+            strings[1] = this.list.get(position).get(1).toString();
+
 
             MyviewHolder3 Holder = (MyviewHolder3) holder;
 
-            Holder.btn_1.setText(text);
-            Holder.btn_2.setText(text_2);
+            Holder.buttons[0].setText(strings[0]);
+            Holder.buttons[1].setText(strings[1]);
 
         } else if(holder.getItemViewType() == 1){
         String text = this.list.get(position).get(0).toString();
 
         MyviewHolder4 Holder = (MyviewHolder4) holder;
 
-        Holder.btn_1.setText(text);
+        Holder.button.setText(text);
 
 
         }
 
 
+    }
+    private int getAudio(String text){
 
-
-
+        if(text.matches("お"))
+            return R.raw.i;
+    return R.raw.a;
     }
 
     @Override

@@ -137,7 +137,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
             Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC);
 
             Holder.progressBar.setProgress(nivels.getProgressBar());
-            Holder.imageView.setImageDrawable(nivels.getImageView());;
+            Holder.imageView.setImageBitmap(nivels.getImageView());;
             Holder.textView.setText(nivels.toString());
 
 
@@ -154,7 +154,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
                 Holder.progressBars[positionOfList].setProgress(item.getProgressBar());
                 Holder.textViews[positionOfList].setText(item.toString());
-                Holder.imageViews[positionOfList].setImageDrawable(item.getImageView());
+                Holder.imageViews[positionOfList].setImageBitmap(item.getImageView());
                 positionOfList++;
             }
 
@@ -174,7 +174,7 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
                 Holder.progressBars[positionOfList].setProgress(item.getProgressBar());
                 Holder.textViews[positionOfList].setText(item.toString());
-                Holder.imageViews[positionOfList].setImageDrawable(item.getImageView());
+                Holder.imageViews[positionOfList].setImageBitmap(item.getImageView());
                 positionOfList++;
             }
 

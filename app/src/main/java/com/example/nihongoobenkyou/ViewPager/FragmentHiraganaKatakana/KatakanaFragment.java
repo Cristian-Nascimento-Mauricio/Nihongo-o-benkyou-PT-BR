@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterHiragana;
 import com.example.nihongoobenkyou.databinding.FragmentHiraganaBinding;
@@ -36,8 +37,9 @@ public class KatakanaFragment extends Fragment {
         RecyclerViewAdpterHiragana adpter = new RecyclerViewAdpterHiragana(list);
         binding.recyclerKatakana.setAdapter(adpter);
 
-        addList("a","i","e","o","u");
-        addList2("1","2","3");
+        Controller controller = new Controller(view.getContext());
+
+        list.addAll(controller.SelecionarHiragana("katakana"));
 
         return view;
     }

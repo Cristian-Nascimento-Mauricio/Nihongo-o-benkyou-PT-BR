@@ -35,7 +35,6 @@
         android:layout_alignStart="@+id/progressBar_1"
         android:layout_alignTop="@id/progressBar_1"
         android:layout_alignEnd="@+id/progressBar_1"
-        android:layout_marginTop="25dp"
-        app:srcCompat="@drawable/fire" />
+        android:layout_marginTop="25dp" />
 
 </RelativeLayout>

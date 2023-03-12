@@ -2,6 +2,7 @@ package com.example.nihongoobenkyou;
 
 
 import static com.example.nihongoobenkyou.R.color.black;
+import static com.example.nihongoobenkyou.R.color.white;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.app.AppOpsManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -26,8 +29,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
+import com.example.nihongoobenkyou.DataBase.AppDataBase;
 import com.example.nihongoobenkyou.ViewPager.Fragments.KanjiScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.articleScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.hiraganaScreenFragment;
@@ -36,6 +41,10 @@ import com.example.nihongoobenkyou.ViewPager.Fragments.vocabularyScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.ViewPagerAdpter;
 import com.example.nihongoobenkyou.databinding.ActivityMainBinding;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
+        StartDataBase();
 
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -103,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.ofensiva.setText(String.valueOf(ofensivas()));
+
 
     }
 
@@ -206,7 +217,41 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    private void StartDataBase( ){
+        AppDataBase appDataBase = new AppDataBase(this);
 
+        File database = getApplicationContext().getDatabasePath(AppDataBase.db_NAME);
+        if(database.exists() == false){
+            appDataBase.getReadableDatabase();
+            if(copyDB(this))
+                Toast.makeText(this, "Funcinou :)", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, "Não Funcinou :(", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    private boolean copyDB(Context context) {
+
+        try {
+            InputStream inputStream = context.getAssets().open(AppDataBase.db_NAME);
+            String  outfile = AppDataBase.getLocalDB() + AppDataBase.db_NAME;
+            OutputStream outputStream = new FileOutputStream(outfile);
+            byte[] buft = new byte[1024];
+            int legth = 0;
+            while((legth = inputStream.read(buft)) > 0){
+                outputStream.write(buft,0,legth);
+            }
+            outputStream.flush();
+            outputStream.close();
+            return true;
+        }catch (Exception e){
+
+            return false;
+        }
+
+    }
 
 
 }

@@ -42,8 +42,7 @@
             android:layout_alignStart="@+id/progressBar_2"
             android:layout_alignTop="@id/progressBar_2"
             android:layout_alignEnd="@+id/progressBar_2"
-            android:layout_marginTop="25dp"
-            app:srcCompat="@drawable/fire" />
+            android:layout_marginTop="25dp" />
     </RelativeLayout>
 
     <Space
@@ -86,7 +85,6 @@
             android:layout_alignStart="@+id/progressBar_3"
             android:layout_alignTop="@id/progressBar_3"
             android:layout_alignEnd="@+id/progressBar_3"
-            android:layout_marginTop="25dp"
-            app:srcCompat="@drawable/fire" />
+            android:layout_marginTop="25dp" />
     </RelativeLayout>
 </LinearLayout>

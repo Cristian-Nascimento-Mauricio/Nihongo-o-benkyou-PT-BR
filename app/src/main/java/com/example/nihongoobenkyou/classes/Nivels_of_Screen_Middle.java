@@ -1,5 +1,6 @@
 package com.example.nihongoobenkyou.classes;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.provider.ContactsContract;
@@ -15,14 +16,14 @@ public class Nivels_of_Screen_Middle {
     private int idOfdb;
     private int progressBar =0;
     private String textView;
-    private Drawable[] drawable = new Drawable[3];
+    private Bitmap[] drawable = new Bitmap[3];
 
     @Override
     public String toString() {
         return String.valueOf(progressBar);
     }
 
-    public Nivels_of_Screen_Middle(int progressBar, String textView, Drawable drawable) {
+    public Nivels_of_Screen_Middle(int progressBar, String textView, Bitmap drawable) {
         this.progressBar = progressBar;
         this.textView = textView;
         this.drawable[0] = drawable;
@@ -71,11 +72,11 @@ public class Nivels_of_Screen_Middle {
         this.textView = textView;
     }
 
-    public Drawable getImageView() {
+    public Bitmap getImageView() {
         return drawable[0];
     }
 
-    public void setImageView(Drawable drawable) {
+    public void setImageView(Bitmap drawable) {
         this.drawable[0] = drawable;
     }
 
@@ -87,11 +88,11 @@ public class Nivels_of_Screen_Middle {
         this.idOfdb = idOfdb;
     }
 
-    public Drawable[] getDrawable() {
+    public Bitmap[] getDrawable() {
         return drawable;
     }
 
-    public void setDrawable(Drawable[] drawable) {
+    public void setDrawable(Bitmap[] drawable) {
         this.drawable = drawable;
     }
 

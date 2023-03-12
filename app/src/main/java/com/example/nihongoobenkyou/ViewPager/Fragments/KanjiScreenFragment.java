@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.service.controls.Control;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterKanji;
 import com.example.nihongoobenkyou.classes.Nivels_of_Screen_Middle;
@@ -35,16 +37,11 @@ public class KanjiScreenFragment extends Fragment {
         binding.recyclerViewKanji.setLayoutManager(layoutManager);
         RecyclerViewAdpterKanji adpter = new RecyclerViewAdpterKanji(list);
 
+        Controller controller = new Controller(view.getContext());
+
         binding.recyclerViewKanji.setAdapter(adpter);
 
-        list.add("NUMERAIS. 一 二 三");
-        list.add("ELEMENTOS, 水 火 風");
-        list.add("CORES, 赤 緑 青");
-        list.add("FAMÍLIA, 母 父 妹");
-        list.add("ANIMAIS, 鳥 猫 犬");
-        list.add("DIREÇÃO, 左 右 上");
-        list.add("TEMPO, 今 日 月");
-
+        list.addAll(controller.SelecionarKanjis());
 
         return view;
     }
