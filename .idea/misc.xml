@@ -22,13 +22,14 @@
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/button_activty.xml" value="0.253" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/button_japan.xml" value="0.253" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/degrade_from_white_to_gray.xml" value="0.253" />
+        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/degrade_toolbar.xml" value="0.219" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/level_up.xml" value="0.228" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/level_up_backgroud.xml" value="0.142" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/level_up_background.xml" value="0.148" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/level_up_gray.xml" value="0.1375" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/space.xml" value="0.219" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/drawable/underline.xml" value="0.1" />
-        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/activity_main.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/apptoolbar.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/fragment_article_screen.xml" value="0.1" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/fragment_hiragana.xml" value="0.12307692307692308" />
@@ -50,7 +51,9 @@
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/item_recycler_view_adpter_version_3.xml" value="0.3229166666666667" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/levels_1.xml" value="0.1" />
         <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/levels_1_copy.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/menu/menu_main.xml" value="0.2849462365591398" />
+        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/openhtml.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/layout/toolbar_reader.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/cristian/Desktop/Nihongo_o_benkyou/projeto/Nihongo-o-benkyou-PT-BR-main/app/src/main/res/menu/menu_main.xml" value="0.19047619047619047" />
       </map>
     </option>
   </component>

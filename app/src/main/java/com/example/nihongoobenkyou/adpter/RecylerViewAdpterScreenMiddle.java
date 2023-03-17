@@ -1,9 +1,11 @@
 package com.example.nihongoobenkyou.adpter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nihongoobenkyou.Interfaces.InterfaceHTML;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.classes.Nivels_of_Screen_Middle;
 
@@ -23,7 +26,7 @@ import com.example.nihongoobenkyou.classes.Nivels_of_Screen_Middle;
 import java.util.List;
 import java.util.Random;
 
-public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private  List<List<Nivels_of_Screen_Middle>> list;
     public RecylerViewAdpterScreenMiddle(List<List<Nivels_of_Screen_Middle>> list){
@@ -35,15 +38,17 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
         TextView textView;
         ImageView imageView;
         Context context;
-
+        Drawable drawable;
         public MyviewHolder(View itemView) {
             super(itemView);
+
+            drawable = itemView.getContext().getDrawable(R.drawable.level_up_gray);
+
             context = itemView.getContext();
             progressBar = itemView.findViewById(R.id.progressBar_1);
             textView = itemView.findViewById(R.id.textView_1);
             imageView = itemView.findViewById(R.id.imageView_1);
         }
-
 
     }
     public class MyviewHolder_2 extends RecyclerView.ViewHolder{
@@ -68,7 +73,6 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
         }
 
-
     }
     public class MyviewHolder_3 extends RecyclerView.ViewHolder{
 
@@ -78,12 +82,9 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
 
         Context context;
 
-
         public MyviewHolder_3(View itemView) {
             super(itemView);
             context = itemView.getContext();
-
-
 
             progressBars[0] = itemView.findViewById(R.id.progressBar_4);
             textViews[0] = itemView.findViewById(R.id.textView_4);
@@ -135,7 +136,6 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
             MyviewHolder Holder = (MyviewHolder)holder;
 
             Holder.progressBar.getBackground().setColorFilter(nivels.getColor(),PorterDuff.Mode.SRC);
-
             Holder.progressBar.setProgress(nivels.getProgressBar());
             Holder.imageView.setImageBitmap(nivels.getImageView());;
             Holder.textView.setText(nivels.toString());
@@ -157,7 +157,6 @@ public class RecylerViewAdpterScreenMiddle extends RecyclerView.Adapter<Recycler
                 Holder.imageViews[positionOfList].setImageBitmap(item.getImageView());
                 positionOfList++;
             }
-
 
         } else if(holder.getItemViewType() == 3){
 

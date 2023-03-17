@@ -29,6 +29,8 @@
         android:layout_below="@id/title_of_item_of_article"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="false"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/black"

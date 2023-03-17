@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -66,32 +67,27 @@ public class Controller extends AppDataBase  {
     }
     public List<List<String>> SelecionarHiragana(String text){
         List<List<String>> list = new ArrayList<>();
+
         if(text.equals("hiragana")){
             List<String> listinha = new ArrayList<>();
             listinha.addAll(getHiraganar());
 
-            list.add(new ArrayList<String>());
 
-            for(int i =1; i < 6;i++)
-                list.get(0).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =6; i < 11;i++)
-                list.get(1).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =11; i < 16;i++)
-                list.get(2).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =16; i < 21;i++)
-                list.get(3).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =21; i < 26;i++)
-                list.get(4).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =26; i < 31;i++)
-                list.get(5).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =31; i < 36;i++)
-                list.get(6).add(listinha.get(i-1));
+            for (String count: listinha) {
+
+                byte[] bytes = count.getBytes();
+
+            }
+
+
+            for(byte i = 0, n= 6; i < 7;i++) {
+                list.add(new ArrayList<String>());
+                for (byte j = (byte) (n-6); j < n-1; j++)
+                    list.get(i).add(listinha.get(j));
+
+                n+=5;
+            }
+
             list.add(new ArrayList<String>());
             for(int i =36; i < 39;i++)
                 list.get(7).add(listinha.get(i-1));
@@ -106,41 +102,41 @@ public class Controller extends AppDataBase  {
             list.get(10).add(listinha.get(45));
 
 
-        } else{
+        } else {
             List<String> listinha = new ArrayList<>();
-            listinha.addAll(getkatakaa());
+            listinha.addAll(getkataka());
 
-            list.add(new ArrayList<String>());
 
-            for(int i =1; i < 6;i++)
-                list.get(0).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =6; i < 11;i++)
-                list.get(1).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =11; i < 16;i++)
-                list.get(2).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =16; i < 21;i++)
-                list.get(3).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =21; i < 26;i++)
-                list.get(4).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =26; i < 31;i++)
-                list.get(5).add(listinha.get(i-1));
-            list.add(new ArrayList<String>());
-            for(int i =31; i < 36;i++)
-                list.get(6).add(listinha.get(i-1));
+            for (String count: listinha) {
+
+                byte[] bytes = count.getBytes();
+
+
+
+            }
+
+
+            for(byte i = 0, n= 6; i < 7;i++) {
+                list.add(new ArrayList<String>());
+                for (byte j = (byte) (n-6); j < n-1; j++)
+                    list.get(i).add(listinha.get(j));
+
+                n+=5;
+            }
+
             list.add(new ArrayList<String>());
             for(int i =36; i < 39;i++)
                 list.get(7).add(listinha.get(i-1));
+
+
             list.add(new ArrayList<String>());
             for(int i =39; i < 44;i++)
                 list.get(8).add(listinha.get(i-1));
+
             list.add(new ArrayList<String>());
             for(int i =44; i < 46;i++)
                 list.get(9).add(listinha.get(i-1));
+
 
             list.add(new ArrayList<>());
             list.get(10).add(listinha.get(45));

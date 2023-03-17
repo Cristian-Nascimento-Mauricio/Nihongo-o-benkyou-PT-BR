@@ -6,6 +6,7 @@ import static com.example.nihongoobenkyou.R.color.white;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.viewpager2.widget.ViewPager2;
@@ -13,7 +14,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
@@ -33,12 +37,14 @@ import android.widget.Toast;
 
 
 import com.example.nihongoobenkyou.DataBase.AppDataBase;
+import com.example.nihongoobenkyou.Interfaces.InterfaceHTML;
 import com.example.nihongoobenkyou.ViewPager.Fragments.KanjiScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.articleScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.hiraganaScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.middleScreenfragment;
 import com.example.nihongoobenkyou.ViewPager.Fragments.vocabularyScreenFragment;
 import com.example.nihongoobenkyou.ViewPager.ViewPagerAdpter;
+import com.example.nihongoobenkyou.activity.OpenhtmlActivity;
 import com.example.nihongoobenkyou.databinding.ActivityMainBinding;
 
 import java.io.File;
@@ -52,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2  viewPager2;
     private ActivityMainBinding binding;
     private androidx.appcompat.widget.Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         StartDataBase();
+
 
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -84,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonVocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.ViewPager.setCurrentItem(1);
+
 
             }
         });
@@ -116,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
     private int ofensivas(){
 
@@ -188,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
@@ -220,9 +224,12 @@ public class MainActivity extends AppCompatActivity {
     private void StartDataBase( ){
         AppDataBase appDataBase = new AppDataBase(this);
 
+        
         File database = getApplicationContext().getDatabasePath(AppDataBase.db_NAME);
-        if(database.exists() == false){
+
+        if(!database.exists()){
             appDataBase.getReadableDatabase();
+
             if(copyDB(this))
                 Toast.makeText(this, "Funcinou :)", Toast.LENGTH_SHORT).show();
             else
@@ -235,19 +242,40 @@ public class MainActivity extends AppCompatActivity {
     private boolean copyDB(Context context) {
 
         try {
+            // Abrir o banco de dados da pasta asset
             InputStream inputStream = context.getAssets().open(AppDataBase.db_NAME);
-            String  outfile = AppDataBase.getLocalDB() + AppDataBase.db_NAME;
-            OutputStream outputStream = new FileOutputStream(outfile);
-            byte[] buft = new byte[1024];
-            int legth = 0;
-            while((legth = inputStream.read(buft)) > 0){
-                outputStream.write(buft,0,legth);
+            // Criar uma cópia do banco de dados na pasta database
+            String outFile = context.getDatabasePath(AppDataBase.db_NAME).getPath();
+            OutputStream outputStream = new FileOutputStream(outFile);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
             }
             outputStream.flush();
             outputStream.close();
-            return true;
-        }catch (Exception e){
+            inputStream.close();
 
+            // Abrir os bancos de dados (asset e database)
+            SQLiteDatabase assetDB = SQLiteDatabase.openDatabase(context.getDatabasePath(AppDataBase.db_NAME).getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+            SQLiteDatabase database = SQLiteDatabase.openDatabase(outFile, null, SQLiteDatabase.OPEN_READWRITE);
+
+            // Copiar todas as tabelas e seus valores
+            Cursor cursor = assetDB.rawQuery("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name", null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String tableName = cursor.getString(0);
+                database.execSQL("DROP TABLE IF EXISTS " + tableName);
+                assetDB.execSQL("ATTACH DATABASE '" + outFile + "' AS newDb");
+                assetDB.execSQL("CREATE TABLE newDb." + tableName + " AS SELECT * FROM " + tableName);
+                assetDB.execSQL("DETACH DATABASE newDb");
+                cursor.moveToNext();
+            }
+            cursor.close();
+            assetDB.close();
+            database.close();
+            return true;
+        } catch (Exception e) {
             return false;
         }
 

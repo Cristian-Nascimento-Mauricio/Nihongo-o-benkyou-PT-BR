@@ -24,7 +24,6 @@ public class AppDataBase extends SQLiteOpenHelper {
 
     private Context mContext;
     public static  String db_NAME = "tabela.db";
-    private static String local;
     private static final int db_version = 1;
     private static final String Createtable = "CREATE TABLE \"tabelaTeste\" (\n" +
             "\t\"id\"\tINTEGER,\n" +
@@ -41,13 +40,12 @@ public class AppDataBase extends SQLiteOpenHelper {
     Cursor cursor;
 
     SQLiteDatabase db;
-    Drawable drawable;
 
 
     public AppDataBase(@Nullable Context context) {
         super(context, db_NAME, null, db_version);
         this.mContext = context;
-        local = context.getFilesDir().getPath();
+        String dbPath = context.getDatabasePath(db_NAME).getPath();
 
     }
 
@@ -196,11 +194,10 @@ public class AppDataBase extends SQLiteOpenHelper {
     public List<String> getHiraganar(){
 
         openDataBase();
-        String SQL = "SELECT * FROM HiraKana ORDER by id";
+        String SQL = "SELECT * FROM hirakana ORDER by id";
         List<String> list = new ArrayList<>();
 
         cursor = db.rawQuery(SQL,null);
-
 
         if(cursor.moveToFirst()){
 
@@ -216,10 +213,10 @@ public class AppDataBase extends SQLiteOpenHelper {
 
 
     }    @SuppressLint("Range")
-    public List<String> getkatakaa(){
+    public List<String> getkataka(){
 
         openDataBase();
-        String SQL = "SELECT * FROM HiraKana ORDER by id";
+        String SQL = "SELECT * FROM hirakana ORDER by id";
         List<String> list = new ArrayList<>();
 
         cursor = db.rawQuery(SQL,null);
@@ -239,24 +236,14 @@ public class AppDataBase extends SQLiteOpenHelper {
 
     }
 
-
-    public static String getLocalDB() {
-        return local;
-    }
-
-    public void openDataBase(){
-
-        String dbPath = mContext.getFilesDir().getPath() + db_NAME;
-        if(db != null && db.isOpen()){
-            return;
-        }
-        db = SQLiteDatabase.openDatabase(dbPath, null,SQLiteDatabase.OPEN_READONLY);
-
-
+    private void openDataBase() {
+        String dbPath = mContext.getDatabasePath(db_NAME).getPath();
+        db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
     public void closeDataBase(){
-        if(db != null) {
+        if (db != null) {
             db.close();
+            db = null;
         }
     }
 

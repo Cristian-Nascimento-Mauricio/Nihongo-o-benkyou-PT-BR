@@ -2,6 +2,8 @@ package com.example.nihongoobenkyou.adpter;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.HardwarePropertiesManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,7 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
         Controller controller;
         Context  context;
         Button[] button = new Button[5];
-        MediaPlayer[] mediaPlayers = new MediaPlayer[5];
+        MediaPlayer mediaPlayer;
         public MyviewHolder(View itemView) {
             super(itemView);
 
@@ -45,6 +47,7 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
     }
     public class MyviewHolder2 extends RecyclerView.ViewHolder{
         Button[] buttons = new Button[3];
+        MediaPlayer mediaPlayer;
 
         public MyviewHolder2(View itemView) {
             super(itemView);
@@ -56,6 +59,8 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
     }
     public class MyviewHolder3 extends RecyclerView.ViewHolder{
         Button[] buttons = new Button[2];
+        MediaPlayer mediaPlayer;
+
 
         public MyviewHolder3(View itemView) {
             super(itemView);
@@ -66,6 +71,7 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
     }
     public class MyviewHolder4 extends RecyclerView.ViewHolder{
         Button button;
+        MediaPlayer mediaPlayer;
 
         public MyviewHolder4(View itemView) {
             super(itemView);
@@ -127,21 +133,28 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
         if(holder.getItemViewType() == 5){
             String[] string = new String[5];
 
-            for(int i =0; i < 5;i++)
+            for(byte i =0; i < 5;i++)
                 string[i] = this.list.get(position).get(i).toString();
 
             MyviewHolder Holder = (MyviewHolder) holder;
 
-            for (int i = 0; i < 5; i++)
+            for (byte i = 0; i < 5; i++)
                 Holder.button[i].setText(string[i]);
 
-
-            for (int i = 0;i < 5;i++){
-                Holder.mediaPlayers[i] = MediaPlayer.create(Holder.context,getAudio(string[0]));
+            for (byte i = 0;i < 5;i++){ ;
                 Holder.button[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Holder.mediaPlayers[2].start();
+
+                        if(Holder.mediaPlayer != null)
+                            Holder.mediaPlayer.release();
+
+                        for (byte i = 0; i < 5; i++)
+                            if(Holder.button[i].getId() == view.getId() )
+                                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(string[i]));
+
+                        Holder.mediaPlayer.start();
+
                     }
                 });
             }
@@ -149,15 +162,33 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
         }else if(holder.getItemViewType() == 3){
 
-            String[] string = new String[5];
+            String[] string = new String[3];
 
-            for(int i =0; i < 3;i++)
+            for(byte i =0; i < 3;i++)
                 string[i] = this.list.get(position).get(i).toString();
 
             MyviewHolder2 Holder = (MyviewHolder2) holder;
 
-            for (int i = 0; i < 3; i++)
+            for (byte i = 0; i < 3; i++)
                 Holder.buttons[i].setText(string[i]);
+
+            for (byte i = 0;i < 3;i++){ ;
+                Holder.buttons[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(Holder.mediaPlayer != null)
+                            Holder.mediaPlayer.release();
+
+                        for (byte i = 0; i < 3; i++)
+                            if(Holder.buttons[i].getId() == view.getId() )
+                                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(string[i]));
+
+                        Holder.mediaPlayer.start();
+
+                    }
+                });
+            }
 
         }else if(holder.getItemViewType() == 2){
 
@@ -172,6 +203,40 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
             Holder.buttons[0].setText(strings[0]);
             Holder.buttons[1].setText(strings[1]);
 
+            Holder.buttons[0].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(Holder.mediaPlayer != null)
+                        Holder.mediaPlayer.release();
+                    if(Holder.buttons[0].getId() == view.getId())
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[0]));
+                    else
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[1]));
+
+                    Holder.mediaPlayer.start();
+
+                }
+            });
+            Holder.buttons[1].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(Holder.mediaPlayer != null)
+                        Holder.mediaPlayer.release();
+
+                    if(Holder.mediaPlayer != null)
+                        Holder.mediaPlayer.release();
+                    if(Holder.buttons[1].getId() == view.getId())
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[1]));
+                    else
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[0]));
+
+                    Holder.mediaPlayer.start();
+
+                }
+            });
+
+
+
         } else if(holder.getItemViewType() == 1){
         String text = this.list.get(position).get(0).toString();
 
@@ -179,16 +244,125 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
         Holder.button.setText(text);
 
+        Holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Holder.mediaPlayer != null)
+                    Holder.mediaPlayer.release();
+
+                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(text));
+
+                Holder.mediaPlayer.start();
+
+            }
+        });
+
 
         }
 
 
     }
-    private int getAudio(String text){
+    private int getAudio(String text ){
 
-        if(text.matches("お"))
-            return R.raw.i;
-    return R.raw.a;
+        switch (text){
+            case "あ":
+                return R.raw.a;
+            case "い":
+                return R.raw.i;
+            case "う":
+                return R.raw.u;
+            case "え":
+                return R.raw.e;
+            case"お":
+                return R.raw.o;
+            case"か":
+                return R.raw.ka;
+            case"き":
+                return R.raw.ki;
+            case"く":
+                return R.raw.ku;
+            case"け":
+                return R.raw.ke;
+            case"こ":
+                return R.raw.ko;
+            case"さ":
+                return R.raw.sa;
+            case"し":
+                return R.raw.shi;
+            case"す":
+                return R.raw.su;
+            case"せ":
+                return R.raw.se;
+            case"そ":
+                return R.raw.so;
+            case"た":
+                return R.raw.ta;
+            case"ち":
+                return R.raw.chi;
+            case"つ":
+                return R.raw.tsu;
+            case"て":
+                return R.raw.te;
+            case"と":
+                return R.raw.to;
+            case"な":
+                return R.raw.na;
+            case"に":
+                return R.raw.ni;
+            case"ぬ":
+                return R.raw.nu;
+            case"ね":
+                return R.raw.ne;
+            case"の":
+                return R.raw.no;
+            case"は":
+                return R.raw.ha;
+            case"ひ":
+                return R.raw.hi;
+            case"ふ":
+                return R.raw.fu;
+            case"へ":
+                return R.raw.he;
+            case"ほ":
+                return R.raw.ho;
+            case"ま":
+                return R.raw.ma;
+            case"み":
+                return R.raw.mi;
+            case"む":
+                return R.raw.mu;
+            case"め":
+                return R.raw.me;
+            case"も":
+                return R.raw.mo;
+            case"や":
+                return R.raw.ya;
+            case"ゆ":
+                return R.raw.yu;
+            case"よ":
+                return R.raw.yo;
+            case"ら":
+                return R.raw.ra;
+            case"り":
+                return R.raw.ri;
+            case"る":
+                return R.raw.ru;
+            case"れ":
+                return R.raw.re;
+            case"ろ":
+                return R.raw.ro;
+            case"わ":
+                return R.raw.wa;
+            case"を":
+                return R.raw.wo;
+            case"ん":
+                return R.raw.n;
+            default:
+                return R.raw.n;
+
+        }
+
+
     }
 
     @Override
