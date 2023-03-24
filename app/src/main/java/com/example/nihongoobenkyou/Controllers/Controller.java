@@ -21,7 +21,6 @@ public class Controller extends AppDataBase  {
     ContentValues dados;
     List<Nivels_of_Screen_Middle> nivels;
 
-
     public Controller(@Nullable Context context) {
         super(context);
 

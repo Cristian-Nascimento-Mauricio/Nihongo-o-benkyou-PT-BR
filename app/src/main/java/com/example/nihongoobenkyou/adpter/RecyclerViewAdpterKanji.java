@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nihongoobenkyou.Interfaces.InterfaceHTML;
 import com.example.nihongoobenkyou.R;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 public class RecyclerViewAdpterKanji extends RecyclerView.Adapter<RecyclerViewAdpterKanji.MyViewHolder> {
 
     private List<String> list = new ArrayList<>();
+    private InterfaceHTML interfaceHTML;
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView textView;
@@ -28,9 +30,9 @@ public class RecyclerViewAdpterKanji extends RecyclerView.Adapter<RecyclerViewAd
 
         }
     }
-    public RecyclerViewAdpterKanji(List<String> list){
+    public RecyclerViewAdpterKanji(List<String> list, InterfaceHTML interfaceHTML){
         this.list = list;
-
+        this.interfaceHTML = interfaceHTML;
     }
 
     @NonNull
@@ -48,6 +50,12 @@ public class RecyclerViewAdpterKanji extends RecyclerView.Adapter<RecyclerViewAd
         String item = list.get(position);
 
         holder.textView.setText(item);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                interfaceHTML.openActivityHTML(item.substring(0,item.indexOf(",")));
+            }
+        });
 
     }
 

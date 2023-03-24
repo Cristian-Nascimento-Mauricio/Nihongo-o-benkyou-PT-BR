@@ -17,6 +17,7 @@ import com.example.nihongoobenkyou.classes.Nivels_of_Screen_Middle;
 import com.example.nihongoobenkyou.classes.Vocabulary_of_Vocabulary_Screen;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,32 +26,21 @@ public class AppDataBase extends SQLiteOpenHelper {
     private Context mContext;
     public static  String db_NAME = "tabela.db";
     private static final int db_version = 1;
-    private static final String Createtable = "CREATE TABLE \"tabelaTeste\" (\n" +
-            "\t\"id\"\tINTEGER,\n" +
-            "\t\"level\"\tINTEGER DEFAULT -1,\n" +
-            "\t\"text\"\tTEXT,\n" +
-            "\t\"drawableBlocked\"\tBLOB,\n" +
-            "\t\"drawableUnblocked\"\tBLOB,\n" +
-            "\t\"drawableFinished\"\tBLOB,\n" +
-            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
-            ")";
-
-    private String SQL;
 
     Cursor cursor;
 
     SQLiteDatabase db;
 
-
     public AppDataBase(@Nullable Context context) {
-        super(context, db_NAME, null, db_version);
-        this.mContext = context;
-        String dbPath = context.getDatabasePath(db_NAME).getPath();
+        super(context, null, null,db_version);
+        mContext = context;
+
 
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        mContext.deleteDatabase(db_NAME);
 
     }
 
@@ -164,6 +154,7 @@ public class AppDataBase extends SQLiteOpenHelper {
     public List<Articles_of_Article_Screen> getAllArtigos(){
 
         openDataBase();
+
         String SQL = "SELECT * FROM artigos ORDER by id";
         List<Articles_of_Article_Screen> list = new ArrayList<>();
 
@@ -188,6 +179,26 @@ public class AppDataBase extends SQLiteOpenHelper {
         return list;
 
     }
+    public int getSize(){
+
+        openDataBase();
+
+        Cursor cursor = db.rawQuery("SELECT count(*) FROM sqlite_master WHERE type='table'", null);
+        int numTables = 0;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            // Obter o número de tabelas do primeiro (e único) registro
+            numTables = cursor.getInt(0);
+        }
+
+
+        cursor.close();
+
+        db.close();
+
+        return numTables;
+
+    }
 
 
     @SuppressLint("Range")
@@ -198,6 +209,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         List<String> list = new ArrayList<>();
 
         cursor = db.rawQuery(SQL,null);
+
 
         if(cursor.moveToFirst()){
 
@@ -219,8 +231,8 @@ public class AppDataBase extends SQLiteOpenHelper {
         String SQL = "SELECT * FROM hirakana ORDER by id";
         List<String> list = new ArrayList<>();
 
-        cursor = db.rawQuery(SQL,null);
 
+        cursor = db.rawQuery(SQL,null);
 
         if(cursor.moveToFirst()){
 
@@ -238,9 +250,12 @@ public class AppDataBase extends SQLiteOpenHelper {
 
     private void openDataBase() {
         String dbPath = mContext.getDatabasePath(db_NAME).getPath();
+        if(db != null && db.isOpen()){
+            return;
+        }
         db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
-    public void closeDataBase(){
+    private void closeDataBase(){
         if (db != null) {
             db.close();
             db = null;
@@ -252,6 +267,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();
     }
+
 
 }
 

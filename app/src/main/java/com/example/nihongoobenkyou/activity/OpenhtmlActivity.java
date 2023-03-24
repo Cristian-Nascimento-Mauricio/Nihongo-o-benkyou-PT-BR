@@ -1,11 +1,18 @@
 package com.example.nihongoobenkyou.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -28,7 +35,6 @@ public class OpenhtmlActivity extends AppCompatActivity {
         textView = findViewById(R.id.TextviewHTML);
         buttonReturn = findViewById(R.id.buttonReturn);
 
-
         try {
             // Abrir o arquivo HTML
             InputStream is = getAssets().open(returnPath());
@@ -36,11 +42,10 @@ public class OpenhtmlActivity extends AppCompatActivity {
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
-
+            
             // Converter o conteúdo HTML para String
             String htmlContent = new String(buffer);
 
-            // Definir o conteúdo HTML no componente TextView
             textView.setText(Html.fromHtml(htmlContent));
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,11 +63,10 @@ public class OpenhtmlActivity extends AppCompatActivity {
     private String returnPath(){
         Intent intent = getIntent();
 
-        String texto = intent.getExtras().getString("key");
+        Log.i("folder", ""+intent.getExtras().getString("folder") + intent.getExtras().getString("key") +".html");
 
-        return "articles/" + intent.getExtras().getString("key") +".html";
+        return intent.getExtras().getString("folder") + intent.getExtras().getString("key") +".html";
 
     }
-
 
 }

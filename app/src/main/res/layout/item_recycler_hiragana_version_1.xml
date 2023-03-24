@@ -11,6 +11,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:bufferType="spannable"
         android:id="@+id/button"
         android:layout_width="50dp"
         android:layout_height="60dp"
@@ -24,6 +25,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:bufferType="spannable"
         android:id="@+id/button2"
         android:layout_width="50dp"
         android:layout_height="60dp"
@@ -37,6 +39,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:bufferType="spannable"
         android:id="@+id/button3"
         android:layout_width="50dp"
         android:layout_height="60dp"
@@ -50,6 +53,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:bufferType="spannable"
         android:id="@+id/button4"
         android:layout_width="50dp"
         android:layout_height="60dp"
@@ -63,6 +67,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:bufferType="spannable"
         android:id="@+id/button5"
         android:layout_width="50dp"
         android:layout_height="60dp"

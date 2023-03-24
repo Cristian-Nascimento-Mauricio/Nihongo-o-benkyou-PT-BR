@@ -3,6 +3,9 @@ package com.example.nihongoobenkyou.adpter;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.HardwarePropertiesManager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,17 +132,22 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-
         if(holder.getItemViewType() == 5){
-            String[] string = new String[5];
+            SpannableString[] SpannableString = new SpannableString[5];
 
-            for(byte i =0; i < 5;i++)
-                string[i] = this.list.get(position).get(i).toString();
+            for(byte i =0; i < 5;i++) {
+                SpannableString[i]  = new SpannableString(this.list.get(position).get(i).replace("\\n","\n"));
+                SpannableString[i].setSpan(
+                        new RelativeSizeSpan(0.5f),
+                        2,
+                        SpannableString[i].length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
 
             MyviewHolder Holder = (MyviewHolder) holder;
 
             for (byte i = 0; i < 5; i++)
-                Holder.button[i].setText(string[i]);
+                Holder.button[i].setText(SpannableString[i]);
 
             for (byte i = 0;i < 5;i++){ ;
                 Holder.button[i].setOnClickListener(new View.OnClickListener() {
@@ -151,7 +159,7 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
                         for (byte i = 0; i < 5; i++)
                             if(Holder.button[i].getId() == view.getId() )
-                                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(string[i]));
+                                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(SpannableString[i].toString().substring(0,1)));
 
                         Holder.mediaPlayer.start();
 
@@ -162,15 +170,20 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
         }else if(holder.getItemViewType() == 3){
 
-            String[] string = new String[3];
+            SpannableString[] SpannableString = new SpannableString[3];
 
-            for(byte i =0; i < 3;i++)
-                string[i] = this.list.get(position).get(i).toString();
-
+            for(byte i =0; i < 3;i++) {
+                SpannableString[i] = new SpannableString(this.list.get(position).get(i).replace("\\n", "\n"));
+                SpannableString[i].setSpan(
+                        new RelativeSizeSpan(0.5f),
+                        2,
+                        SpannableString[i].length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
             MyviewHolder2 Holder = (MyviewHolder2) holder;
 
             for (byte i = 0; i < 3; i++)
-                Holder.buttons[i].setText(string[i]);
+                Holder.buttons[i].setText(SpannableString[i]);
 
             for (byte i = 0;i < 3;i++){ ;
                 Holder.buttons[i].setOnClickListener(new View.OnClickListener() {
@@ -182,7 +195,7 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
                         for (byte i = 0; i < 3; i++)
                             if(Holder.buttons[i].getId() == view.getId() )
-                                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(string[i]));
+                                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(SpannableString[i].toString().substring(0,1)));
 
                         Holder.mediaPlayer.start();
 
@@ -192,16 +205,25 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
         }else if(holder.getItemViewType() == 2){
 
-            String[] strings = new String[2];
+            SpannableString[] SpannableString = new SpannableString[2];
 
-            strings[0] = this.list.get(position).get(0).toString();
-            strings[1] = this.list.get(position).get(1).toString();
-
+            SpannableString[0] = new SpannableString ( this.list.get(position).get(0).replace("\\n", "\n") );
+            SpannableString[0].setSpan(
+                    new RelativeSizeSpan(0.5f),
+                    2,
+                    SpannableString[0].length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            SpannableString[1] = new SpannableString ( this.list.get(position).get(1).replace("\\n", "\n") );
+            SpannableString[1].setSpan(
+                    new RelativeSizeSpan(0.5f),
+                    2,
+                    SpannableString[1].length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             MyviewHolder3 Holder = (MyviewHolder3) holder;
 
-            Holder.buttons[0].setText(strings[0]);
-            Holder.buttons[1].setText(strings[1]);
+            Holder.buttons[0].setText(SpannableString[0]);
+            Holder.buttons[1].setText(SpannableString[1]);
 
             Holder.buttons[0].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -209,9 +231,9 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
                     if(Holder.mediaPlayer != null)
                         Holder.mediaPlayer.release();
                     if(Holder.buttons[0].getId() == view.getId())
-                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[0]));
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(SpannableString[0].toString().substring(0,1)));
                     else
-                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[1]));
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(SpannableString[1].toString().substring(0,1)));
 
                     Holder.mediaPlayer.start();
 
@@ -226,9 +248,9 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
                     if(Holder.mediaPlayer != null)
                         Holder.mediaPlayer.release();
                     if(Holder.buttons[1].getId() == view.getId())
-                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[1]));
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(SpannableString[1].toString().substring(0,1)));
                     else
-                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(strings[0]));
+                        Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(SpannableString[0].toString().substring(0,1)));
 
                     Holder.mediaPlayer.start();
 
@@ -238,28 +260,32 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
 
 
         } else if(holder.getItemViewType() == 1){
-        String text = this.list.get(position).get(0).toString();
 
-        MyviewHolder4 Holder = (MyviewHolder4) holder;
+            SpannableString text = new SpannableString ( this.list.get(position).get(0).replace("\\n", "\n"));
+            text.setSpan(
+                    new RelativeSizeSpan(0.5f),
+                    2,
+                    text.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        Holder.button.setText(text);
+            MyviewHolder4 Holder = (MyviewHolder4) holder;
 
-        Holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(Holder.mediaPlayer != null)
-                    Holder.mediaPlayer.release();
+            Holder.button.setText(text);
 
-                Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(text));
+            Holder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(Holder.mediaPlayer != null)
+                        Holder.mediaPlayer.release();
 
-                Holder.mediaPlayer.start();
+                    Holder.mediaPlayer = MediaPlayer.create(view.getContext(), getAudio(text.toString().substring(0,1)));
 
-            }
-        });
+                    Holder.mediaPlayer.start();
 
+                }
+            });
 
         }
-
 
     }
     private int getAudio(String text ){

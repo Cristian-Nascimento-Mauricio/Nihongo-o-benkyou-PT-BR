@@ -7,15 +7,18 @@ import static com.example.nihongoobenkyou.R.color.white;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -65,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         StartDataBase();
 
-
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonVocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                binding.ViewPager.setCurrentItem(1);
 
             }
         });
@@ -224,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
     private void StartDataBase( ){
         AppDataBase appDataBase = new AppDataBase(this);
 
-        
         File database = getApplicationContext().getDatabasePath(AppDataBase.db_NAME);
 
         if(!database.exists()){
@@ -236,44 +237,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Não Funcinou :(", Toast.LENGTH_SHORT).show();
 
         }
-
     }
 
     private boolean copyDB(Context context) {
-
         try {
-            // Abrir o banco de dados da pasta asset
             InputStream inputStream = context.getAssets().open(AppDataBase.db_NAME);
-            // Criar uma cópia do banco de dados na pasta database
-            String outFile = context.getDatabasePath(AppDataBase.db_NAME).getPath();
-            OutputStream outputStream = new FileOutputStream(outFile);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
+            String outfile = context.getDatabasePath(AppDataBase.db_NAME).getPath();
+            OutputStream outputStream = new FileOutputStream(outfile);
+            byte[] buft = new byte[1024];
+            int length = 0;
+            while ((length = inputStream.read(buft)) > 0) {
+                outputStream.write(buft, 0, length);
             }
             outputStream.flush();
             outputStream.close();
-            inputStream.close();
-
-            // Abrir os bancos de dados (asset e database)
-            SQLiteDatabase assetDB = SQLiteDatabase.openDatabase(context.getDatabasePath(AppDataBase.db_NAME).getPath(), null, SQLiteDatabase.OPEN_READWRITE);
-            SQLiteDatabase database = SQLiteDatabase.openDatabase(outFile, null, SQLiteDatabase.OPEN_READWRITE);
-
-            // Copiar todas as tabelas e seus valores
-            Cursor cursor = assetDB.rawQuery("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name", null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                String tableName = cursor.getString(0);
-                database.execSQL("DROP TABLE IF EXISTS " + tableName);
-                assetDB.execSQL("ATTACH DATABASE '" + outFile + "' AS newDb");
-                assetDB.execSQL("CREATE TABLE newDb." + tableName + " AS SELECT * FROM " + tableName);
-                assetDB.execSQL("DETACH DATABASE newDb");
-                cursor.moveToNext();
-            }
-            cursor.close();
-            assetDB.close();
-            database.close();
             return true;
         } catch (Exception e) {
             return false;

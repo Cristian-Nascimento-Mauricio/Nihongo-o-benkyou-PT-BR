@@ -60,11 +60,11 @@ public class articleScreenFragment extends Fragment implements InterfaceHTML{
         binding = null;
     }
 
-
     @Override
     public void openActivityHTML(String text) {
         Intent intent = new Intent(getActivity(),OpenhtmlActivity.class);
 
+        intent.putExtra("folder","articles/");
         intent.putExtra("key",deAccent(text).toLowerCase().trim());
 
         startActivity(intent);

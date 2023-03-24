@@ -12,6 +12,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:bufferType="spannable"
         android:id="@+id/button11"
         android:layout_width="50dp"
         android:layout_height="60dp"
