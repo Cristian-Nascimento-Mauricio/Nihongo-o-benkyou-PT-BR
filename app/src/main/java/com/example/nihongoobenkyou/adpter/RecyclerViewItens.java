@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nihongoobenkyou.Interfaces.InterfaceAnswerAndItens;
 import com.example.nihongoobenkyou.R;
+import com.example.nihongoobenkyou.classes.Word;
 
 import java.util.List;
 
@@ -49,7 +50,9 @@ public class RecyclerViewItens extends RecyclerView.Adapter<RecyclerViewItens.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolderItens holder, int position) {
 
-        holder.textView.setText(list.get(position));
+        holder.textView.setText( "  " +  list.get(position) + "  " );
+
+
 
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +60,8 @@ public class RecyclerViewItens extends RecyclerView.Adapter<RecyclerViewItens.Vi
                 if(holder.Onclick) {
                     holder.textView.setBackground(holder.itemView.getResources().getDrawable(R.drawable.space_gray));
                     holder.textView.setTextColor(Color.TRANSPARENT);
-                    interfaceAnswerAndItens.inputAnswer((String) holder.textView.getText());
+                    interfaceAnswerAndItens.inputAnswer(new Word(holder.textView.getText().toString().trim() ,  holder.getAdapterPosition()));
+
                     holder.Onclick = false;
                 }
             }

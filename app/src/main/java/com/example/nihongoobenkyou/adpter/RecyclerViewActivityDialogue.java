@@ -3,32 +3,45 @@ package com.example.nihongoobenkyou.adpter;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.os.Build;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nihongoobenkyou.Interfaces.InterfaceAnswerAndItens;
 import com.example.nihongoobenkyou.R;
+import com.example.nihongoobenkyou.classes.Word;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxItemDecoration;
-import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -115,32 +128,34 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
         }
     }
     public class ViewQuestuion_version_2 extends RecyclerView.ViewHolder implements InterfaceAnswerAndItens {
-        RecyclerView rcyitens , rcyAnswer;
-        RecyclerViewAnswer adpterAnswer;
+        RecyclerView rcyitens;
         RecyclerViewItens adpterItens;
+        TextView textView;
+        String TextAnswer;
+        Spannable spannable;
 
         List<String> itens = new ArrayList<>();
-        List<String> answer = new ArrayList<>();
+        List<Word> words = new ArrayList<>();
 
         @SuppressLint("ResourceType")
         public ViewQuestuion_version_2(@NonNull View itemView) {
             super(itemView);
 
             rcyitens = itemView.findViewById(R.id.itens);
-            rcyAnswer = itemView.findViewById(R.id.answer);
+            textView = itemView.findViewById(R.id.answer);
 
-            itens.add(" watashi ");
-            itens.add(" ha ");
-            itens.add(" roku ");
-            itens.add(" sakura ");
-            itens.add(" boku ");
-            itens.add(" wo ");
-            itens.add(" Anna ");
-            itens.add(" yoroshiku onegaishimasu ");
-            itens.add(" arigatou ");
-            itens.add(" sensei ");
-            itens.add(" -san ");
-            itens.add(" Nihon ");
+            itens.add("watashi");
+            itens.add("ha");
+            itens.add("roku");
+            itens.add("sakura");
+            itens.add("boku");
+            itens.add("wo");
+            itens.add("Anna");
+            itens.add("yoroshiku onegaishimasu");
+            itens.add("arigatou");
+            itens.add("sensei");
+            itens.add("-san");
+            itens.add("Nihon");
 
             FlexboxItemDecoration itemDecoration = new FlexboxItemDecoration(itemView.getContext());
             itemDecoration.setOrientation(FlexboxItemDecoration.BOTH);
@@ -151,46 +166,103 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
             flexboxLayoutManagerItens.setFlexWrap(FlexWrap.WRAP);
             flexboxLayoutManagerItens.setJustifyContent(JustifyContent.SPACE_EVENLY);
 
-            FlexboxItemDecoration AnswerDecoration = new FlexboxItemDecoration(itemView.getContext());
-            AnswerDecoration.setOrientation(FlexboxItemDecoration.BOTH);
-            AnswerDecoration.setDrawable(itemView.getResources().getDrawable(R.drawable.linha));
-
-            FlexboxLayoutManager flexboxLayoutManagerAnswer = new FlexboxLayoutManager(itemView.getContext());
-            flexboxLayoutManagerAnswer.setFlexDirection(FlexDirection.ROW);
-            flexboxLayoutManagerAnswer.setFlexWrap(FlexWrap.WRAP);
-            flexboxLayoutManagerAnswer.setJustifyContent(JustifyContent.FLEX_START);
-
             adpterItens = new RecyclerViewItens(itens , this);
-            adpterAnswer = new RecyclerViewAnswer(answer , this);
 
             rcyitens.setAdapter(adpterItens);
             rcyitens.setLayoutManager(flexboxLayoutManagerItens);
             rcyitens.addItemDecoration(itemDecoration);
 
-            rcyAnswer.setAdapter(adpterAnswer);
-            rcyAnswer.setLayoutManager(flexboxLayoutManagerAnswer);
-
         }
 
         @Override
-        public void inputAnswer(String text) {
-            answer.add(text);
-            adpterAnswer.notifyDataSetChanged();
+        public void inputAnswer(Word word) {
+
+            word.setStartPosition(word.getLastLetter());
+            word.setEndPosition(word.getLastLetter() + word.getLenght());
+
+            Log.i("Valores", " \ntexto: "  + word.getWord() + "\nLength: " + word.getLenght() + "\nStrat: " + word.getStartPosition() + "\nEnd: " + word.getEndPosition()
+                 + "\nLast: " + word.getLastLetter());
+
+            words.add(word);
+
+            List<String> Myanswer = new ArrayList<>();
+
+            for (Word each: words) {
+                Myanswer.add(each.getWord());
+            }
+
+            TextAnswer = TextUtils.join(" ",Myanswer);
+
+            spannable = new SpannableString(TextAnswer);
+
+            for (Word each: words) {
+                CustomClickableSpan clickableSpan = new CustomClickableSpan(words.indexOf(each));
+                spannable.setSpan(clickableSpan,each.getStartPosition(),each.getEndPosition(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            textView.setText(spannable);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setSelected(true);
+
+        }
+        @Override
+        public void changeAnswer(int position) {
+
+            unInpuntAnswer(words.get(position).getPosition());
+            words.remove(position);
+
+            Word.setLastLetter(0);
+
+            for (int i = 0; i < words.size(); i++) {
+                words.get(i).setStartPosition(words.get(i).getLastLetter());
+                words.get(i).setEndPosition(words.get(i).getLastLetter() + words.get(i).getLenght());
+            }
+
+            List<String> Myanswer = new ArrayList<>();
+
+            for (Word each: words) {
+                Myanswer.add(each.getWord());
+            }
+
+            TextAnswer = TextUtils.join(" ",Myanswer);
+
+            spannable = new SpannableString(TextAnswer);
+
+            for (Word each: words) {
+                CustomClickableSpan clickableSpan = new CustomClickableSpan(words.indexOf(each));
+                spannable.setSpan(clickableSpan,each.getStartPosition(),each.getEndPosition(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+
+            textView.setText(spannable);
 
         }
 
-        @Override
-        public void unInpuntAnswer(String text) {
+        public void unInpuntAnswer(int index) {
 
-            RecyclerViewItens.ViewHolderItens viewHolder = (RecyclerViewItens.ViewHolderItens) rcyitens.findViewHolderForAdapterPosition(itens.indexOf(text));
+            RecyclerViewItens.ViewHolderItens viewHolder = (RecyclerViewItens.ViewHolderItens) rcyitens.findViewHolderForAdapterPosition(index);
 
             viewHolder.textView.setBackground(itemView.getResources().getDrawable(R.drawable.button_activty));
             viewHolder.textView.setTextColor(Color.BLACK);
             viewHolder.Onclick = true;
-            answer.remove(answer.indexOf(text));
-            adpterAnswer.notifyDataSetChanged();
 
         }
+        public class CustomClickableSpan extends ClickableSpan {
+            private int position;
+
+            public CustomClickableSpan(int position) {
+                this.position = position;
+
+            }
+
+            @Override
+            public void onClick(@NonNull View view) {
+                // Use o valor do parâmetro aqui
+                changeAnswer(position);
+            }
+
+        }
+
     }
     public RecyclerViewActivityDialogue( List<Pair<String,ArrayList>> list){
         this.list = list;

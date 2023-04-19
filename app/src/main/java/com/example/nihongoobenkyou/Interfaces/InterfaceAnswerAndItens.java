@@ -1,9 +1,10 @@
 package com.example.nihongoobenkyou.Interfaces;
 
+import com.example.nihongoobenkyou.classes.Word;
+
 public interface InterfaceAnswerAndItens {
 
-    void inputAnswer(String text);
+    void inputAnswer(Word word);
 
-    void unInpuntAnswer(String text);
-
+    void changeAnswer(int position);
 }
