@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="60dp"
+    android:background="@drawable/button_activty">
+
+
+    <ImageButton
+        android:id="@+id/btnAudio3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:background="@android:drawable/ic_lock_silent_mode_off"
+        android:backgroundTint="#F12727"
+        android:backgroundTintMode="src_over"
+        android:foregroundGravity="center_vertical"
+        app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+
+    <ProgressBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toEndOf="@id/btnAudio3"
+        android:progressDrawable="@drawable/seekbar_version_1"
+        android:thumb="@android:color/transparent"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0" />
+
+</RelativeLayout>

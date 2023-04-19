@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RecyclerViewAdpterKanji extends RecyclerView.Adapter<RecyclerViewAdpterKanji.MyViewHolder> {
 
-    private List<String> list = new ArrayList<>();
+    private List<String> list;
     private InterfaceHTML interfaceHTML;
     public class MyViewHolder extends RecyclerView.ViewHolder{
 

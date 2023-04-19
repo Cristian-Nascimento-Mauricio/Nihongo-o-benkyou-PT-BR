@@ -38,7 +38,6 @@ public class hiraganaScreenFragment extends Fragment {
         return view;
     }
 
-
     private void configViewPager(){
         ViewPagerAdpter adpter = new ViewPagerAdpter(getActivity());
         binding.HiraganaViewPager.setAdapter(adpter);

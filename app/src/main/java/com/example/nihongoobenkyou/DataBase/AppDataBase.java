@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
@@ -34,7 +35,6 @@ public class AppDataBase extends SQLiteOpenHelper {
     public AppDataBase(@Nullable Context context) {
         super(context, null, null,db_version);
         mContext = context;
-
 
     }
 
@@ -71,7 +71,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         openDataBase();
 
         List<Nivels_of_Screen_Middle> list = new ArrayList<>();
-        String SQL = "SELECT * FROM tabelaTeste ORDER by id";
+        String SQL = "SELECT * FROM rcylevel ORDER by id";
         Nivels_of_Screen_Middle obj;
 
         cursor = db.rawQuery(SQL,null);
@@ -80,14 +80,13 @@ public class AppDataBase extends SQLiteOpenHelper {
 
             do{
                 obj = new Nivels_of_Screen_Middle(
-
                         cursor.getInt(cursor.getColumnIndex("level")),
                         cursor.getString(cursor.getColumnIndex("text")),
                         BitmapFactory.decodeByteArray( cursor.
                                         getBlob(cursor.getColumnIndex("drawableUnblocked")),
                                 0,
                                 cursor.getBlob(cursor.getColumnIndex("drawableUnblocked")).length));
-
+                obj.setIdOfdb(cursor.getInt(cursor.getColumnIndex("id")));
                 list.add(obj);
 
             }while (cursor.moveToNext());
@@ -104,11 +103,10 @@ public class AppDataBase extends SQLiteOpenHelper {
         openDataBase();
 
         List<Vocabulary_of_Vocabulary_Screen> list = new ArrayList<>();
-        String SQL = "SELECT * FROM dialogo ORDER by id";
+        String SQL = "SELECT * FROM rcydialogue ORDER by id";
         Vocabulary_of_Vocabulary_Screen obj;
 
         cursor = db.rawQuery(SQL,null);
-
 
         if(cursor.moveToFirst()) {
             do {
@@ -132,7 +130,7 @@ public class AppDataBase extends SQLiteOpenHelper {
     public List<String> getAllKanjis(){
 
         openDataBase();
-        String SQL = "SELECT * FROM kanjis ORDER by id";
+        String SQL = "SELECT * FROM rcykanji ORDER by id";
         List<String> list = new ArrayList<>();
 
         cursor = db.rawQuery(SQL,null);
@@ -155,7 +153,7 @@ public class AppDataBase extends SQLiteOpenHelper {
 
         openDataBase();
 
-        String SQL = "SELECT * FROM artigos ORDER by id";
+        String SQL = "SELECT * FROM rcyarticles ORDER by id";
         List<Articles_of_Article_Screen> list = new ArrayList<>();
 
         cursor = db.rawQuery(SQL,null);
@@ -205,7 +203,7 @@ public class AppDataBase extends SQLiteOpenHelper {
     public List<String> getHiraganar(){
 
         openDataBase();
-        String SQL = "SELECT * FROM hirakana ORDER by id";
+        String SQL = "SELECT * FROM rcykana ORDER by id";
         List<String> list = new ArrayList<>();
 
         cursor = db.rawQuery(SQL,null);
@@ -228,7 +226,7 @@ public class AppDataBase extends SQLiteOpenHelper {
     public List<String> getkataka(){
 
         openDataBase();
-        String SQL = "SELECT * FROM hirakana ORDER by id";
+        String SQL = "SELECT * FROM rcykana ORDER by id";
         List<String> list = new ArrayList<>();
 
 
@@ -245,6 +243,10 @@ public class AppDataBase extends SQLiteOpenHelper {
         closeDataBase();
 
         return list;
+
+    }
+    public void upVersionTable(){
+
 
     }
 

@@ -6,5 +6,6 @@
     <string name="japanese_text_button_2">言葉</string>
     <string name="japanese_text_button_3">漢字</string>
     <string name="japanese_text_button_4">あ</string>
+    <dimen name="text_size_large">18sp</dimen>
 
 </resources>

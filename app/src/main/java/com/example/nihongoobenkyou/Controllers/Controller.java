@@ -16,6 +16,7 @@ import com.example.nihongoobenkyou.classes.Vocabulary_of_Vocabulary_Screen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Controller extends AppDataBase  {
     ContentValues dados;
@@ -32,7 +33,7 @@ public class Controller extends AppDataBase  {
 
         dados.put("text",obj.getTextView());
 
-        insert("tabelaTeste",dados);
+        insert("rcylevel",dados);
 
     }
 
@@ -42,7 +43,7 @@ public class Controller extends AppDataBase  {
 
         dados.put("level",obj.getIdOfdb());
 
-        update("tabelaTeste",dados);
+        update("rcylevel",dados);
 
     }
 
@@ -67,79 +68,102 @@ public class Controller extends AppDataBase  {
     public List<List<String>> SelecionarHiragana(String text){
         List<List<String>> list = new ArrayList<>();
 
+
         if(text.equals("hiragana")){
             List<String> listinha = new ArrayList<>();
             listinha.addAll(getHiraganar());
 
 
-            for (String count: listinha) {
-
-                byte[] bytes = count.getBytes();
-
-            }
-
-
             for(byte i = 0, n= 6; i < 7;i++) {
                 list.add(new ArrayList<String>());
                 for (byte j = (byte) (n-6); j < n-1; j++)
                     list.get(i).add(listinha.get(j));
-
                 n+=5;
             }
 
             list.add(new ArrayList<String>());
-            for(int i =36; i < 39;i++)
+            for(byte i =36; i < 39;i++)
                 list.get(7).add(listinha.get(i-1));
             list.add(new ArrayList<String>());
-            for(int i =39; i < 44;i++)
+            for(byte i =39; i < 44;i++)
                 list.get(8).add(listinha.get(i-1));
             list.add(new ArrayList<String>());
-            for(int i =44; i < 46;i++)
+            for(byte i =44; i < 46;i++)
                 list.get(9).add(listinha.get(i-1));
 
             list.add(new ArrayList<>());
             list.get(10).add(listinha.get(45));
 
+            list.add(new ArrayList<>());
+            for(byte i =47; i < 52;i++)
+                list.get(11).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =52; i < 57;i++)
+                list.get(12).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =57; i < 62;i++)
+                list.get(13).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =62; i < 67;i++)
+                list.get(14).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =67; i < 72;i++)
+                list.get(15).add(listinha.get(i-1));
+
+            list.add(0,new ArrayList<>());
+            list.add(12,new ArrayList<>());
 
         } else {
             List<String> listinha = new ArrayList<>();
             listinha.addAll(getkataka());
 
-
-            for (String count: listinha) {
-
-                byte[] bytes = count.getBytes();
-
-
-
+            for (String count:listinha ) {
+                if(count.getBytes()[1] == -125)
+                    if (count.getBytes()[2] % 2 != 0)
+                        Log.i("numero", "case \"TEXTO\" : return R.raw.".replace("TEXTO",count.substring(0,1))
+                                 + count.substring(3,count.length()).toLowerCase() + ";");
             }
-
-
             for(byte i = 0, n= 6; i < 7;i++) {
                 list.add(new ArrayList<String>());
                 for (byte j = (byte) (n-6); j < n-1; j++)
                     list.get(i).add(listinha.get(j));
-
                 n+=5;
             }
 
             list.add(new ArrayList<String>());
-            for(int i =36; i < 39;i++)
+            for(byte i =36; i < 39;i++)
                 list.get(7).add(listinha.get(i-1));
 
-
             list.add(new ArrayList<String>());
-            for(int i =39; i < 44;i++)
+            for(byte i =39; i < 44;i++)
                 list.get(8).add(listinha.get(i-1));
 
             list.add(new ArrayList<String>());
-            for(int i =44; i < 46;i++)
+            for(byte i =44; i < 46;i++)
                 list.get(9).add(listinha.get(i-1));
-
 
             list.add(new ArrayList<>());
             list.get(10).add(listinha.get(45));
 
+            list.add(new ArrayList<>());
+            for(byte i =47; i < 52;i++)
+                list.get(11).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =52; i < 57;i++)
+                list.get(12).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =57; i < 62;i++)
+                list.get(13).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =62; i < 67;i++)
+                list.get(14).add(listinha.get(i-1));
+            list.add(new ArrayList<>());
+            for(byte i =67; i < 72;i++)
+                list.get(15).add(listinha.get(i-1));
+
+
+            list.add(0,new ArrayList<>());
+            list.add(12,new ArrayList<>());
 
         }
         return list;
@@ -150,11 +174,9 @@ public class Controller extends AppDataBase  {
 
         dados.put("level",obj.getIdOfdb());
 
-        delet("tabelaTeste",dados);
-
+        delet("rcylevel",dados);
 
     }
-
 
     public void filtar() {
 

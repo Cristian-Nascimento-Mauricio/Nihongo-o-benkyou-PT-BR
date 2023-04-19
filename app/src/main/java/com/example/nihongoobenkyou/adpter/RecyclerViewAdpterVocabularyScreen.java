@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nihongoobenkyou.Interfaces.InterfaceDialogue;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.classes.Vocabulary_of_Vocabulary_Screen;
 
@@ -18,7 +19,7 @@ public class RecyclerViewAdpterVocabularyScreen extends RecyclerView.Adapter<Rec
 
 
     private List<Vocabulary_of_Vocabulary_Screen> list = new ArrayList<>();
-
+    private InterfaceDialogue interfaceDialogue;
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
@@ -32,11 +33,18 @@ public class RecyclerViewAdpterVocabularyScreen extends RecyclerView.Adapter<Rec
             speech2 = itemView.findViewById(R.id.speech2);
             speech3 = itemView.findViewById(R.id.speech3);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    interfaceDialogue.openDialogueActivity("texto");
+                }
+            });
         }
     }
 
-    public RecyclerViewAdpterVocabularyScreen(List<Vocabulary_of_Vocabulary_Screen> list){
+    public RecyclerViewAdpterVocabularyScreen(List<Vocabulary_of_Vocabulary_Screen> list, InterfaceDialogue interfaceDialogue){
         this.list = list;
+        this.interfaceDialogue = interfaceDialogue;
     }
 
     @NonNull

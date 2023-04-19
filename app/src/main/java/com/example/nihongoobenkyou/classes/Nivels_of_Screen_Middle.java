@@ -13,7 +13,7 @@ import com.example.nihongoobenkyou.R;
 
 public class Nivels_of_Screen_Middle {
 
-    private int idOfdb;
+    private int id;
     private int progressBar =0;
     private String textView;
     private Bitmap[] drawable = new Bitmap[3];
@@ -81,11 +81,11 @@ public class Nivels_of_Screen_Middle {
     }
 
     public int getIdOfdb() {
-        return idOfdb;
+        return id;
     }
 
-    public void setIdOfdb(int idOfdb) {
-        this.idOfdb = idOfdb;
+    public void setIdOfdb(int id) {
+        this.id = id;
     }
 
     public Bitmap[] getDrawable() {

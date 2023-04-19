@@ -63,8 +63,6 @@ public class OpenhtmlActivity extends AppCompatActivity {
     private String returnPath(){
         Intent intent = getIntent();
 
-        Log.i("folder", ""+intent.getExtras().getString("folder") + intent.getExtras().getString("key") +".html");
-
         return intent.getExtras().getString("folder") + intent.getExtras().getString("key") +".html";
 
     }
