@@ -31,6 +31,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nihongoobenkyou.Interfaces.InterfaceAnswerAndItens;
 import com.example.nihongoobenkyou.R;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Inters_of_dialogues;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Question_version_1;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Question_version_2;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Speech;
 import com.example.nihongoobenkyou.classes.Word;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
@@ -41,13 +45,19 @@ import com.google.android.flexbox.JustifyContent;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 
 public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
-    List<Pair<String,ArrayList>> list;
+    List<Inters_of_dialogues> list;
+
+    public RecyclerViewActivityDialogue( List<Inters_of_dialogues> list){
+        this.list = list;
+
+    }
 
     public class ViewHolderSpeechLeft extends RecyclerView.ViewHolder{
         ImageButton imageButton;
@@ -113,7 +123,6 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
     public class ViewQuestuion_version_1 extends RecyclerView.ViewHolder{
 
         Button[] buttons = new Button[5];
-        String CorrectResponse = "私はAnnaですおろしくおねがいしまいす";
 
         public ViewQuestuion_version_1(@NonNull View itemView) {
             super(itemView);
@@ -133,6 +142,7 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
         TextView textView;
         String TextAnswer;
         Spannable spannable;
+        String CorrectAnswer;
 
         List<String> itens = new ArrayList<>();
         List<Word> words = new ArrayList<>();
@@ -143,19 +153,6 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
 
             rcyitens = itemView.findViewById(R.id.itens);
             textView = itemView.findViewById(R.id.answer);
-
-            itens.add("watashi");
-            itens.add("ha");
-            itens.add("roku");
-            itens.add("sakura");
-            itens.add("boku");
-            itens.add("wo");
-            itens.add("Anna");
-            itens.add("yoroshiku onegaishimasu");
-            itens.add("arigatou");
-            itens.add("sensei");
-            itens.add("-san");
-            itens.add("Nihon");
 
             FlexboxItemDecoration itemDecoration = new FlexboxItemDecoration(itemView.getContext());
             itemDecoration.setOrientation(FlexboxItemDecoration.BOTH);
@@ -180,9 +177,6 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
             word.setStartPosition(word.getLastLetter());
             word.setEndPosition(word.getLastLetter() + word.getLenght());
 
-            Log.i("Valores", " \ntexto: "  + word.getWord() + "\nLength: " + word.getLenght() + "\nStrat: " + word.getStartPosition() + "\nEnd: " + word.getEndPosition()
-                 + "\nLast: " + word.getLastLetter());
-
             words.add(word);
 
             List<String> Myanswer = new ArrayList<>();
@@ -203,6 +197,12 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
             textView.setText(spannable);
             textView.setMovementMethod(LinkMovementMethod.getInstance());
             textView.setSelected(true);
+
+            Toast.makeText(itemView.getContext(), TextAnswer.trim() + "\n" + CorrectAnswer.trim(), Toast.LENGTH_LONG).show();
+
+
+            if(TextAnswer.replaceAll("\\s", "").equals(CorrectAnswer.replaceAll("\\s","")))
+                Toast.makeText(itemView.getContext(), "Correto", Toast.LENGTH_SHORT).show();
 
         }
         @Override
@@ -230,7 +230,7 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
 
             for (Word each: words) {
                 CustomClickableSpan clickableSpan = new CustomClickableSpan(words.indexOf(each));
-                spannable.setSpan(clickableSpan,each.getStartPosition(),each.getEndPosition(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannable.setSpan(clickableSpan,each.getStartPosition(),each.getEndPosition(),Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
             }
 
 
@@ -257,15 +257,11 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
 
             @Override
             public void onClick(@NonNull View view) {
-                // Use o valor do parâmetro aqui
+
                 changeAnswer(position);
             }
 
         }
-
-    }
-    public RecyclerViewActivityDialogue( List<Pair<String,ArrayList>> list){
-        this.list = list;
 
     }
 
@@ -277,11 +273,11 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
             case 0:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_1, parent, false);
 
-                return new ViewHolderSpeechRight(itemView);
+                return new ViewHolderSpeechLeft(itemView);
             case 1:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_2, parent, false);
 
-                return new ViewHolderSpeechLeft(itemView);
+                return new ViewHolderSpeechRight(itemView);
             case 2:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_3, parent, false);
                 return  new ViewHolderAudio(itemView);
@@ -300,7 +296,10 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
     @Override
     public int getItemViewType(int position) {
 
-        switch (list.get(position).first){
+        Log.i("Tipo", "" + list.get(position).getType());
+
+
+        switch (list.get(position).getType()){
             case "SpeechLeft":
                 return 0;
             case "SpeechRight":
@@ -322,31 +321,41 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
 
         switch (holder.getItemViewType()){
             case 0:
-                ViewHolderSpeechRight Holder = (ViewHolderSpeechRight) holder;
+                ViewHolderSpeechLeft HolderSpechLeft = (ViewHolderSpeechLeft) holder;
+
+                HolderSpechLeft.textView.setText( ((Speech) list.get(position)).getText() );
                 break;
             case 1:
-                ViewHolderSpeechLeft Holder2 = (ViewHolderSpeechLeft) holder;
+                ViewHolderSpeechRight HolderSpechRight = (ViewHolderSpeechRight) holder;
+
+                HolderSpechRight.textView.setText(((Speech) list.get(position)).getText());
+
                 break;
             case 2:
                 ViewHolderAudio Holder3 = (ViewHolderAudio) holder;
                 break;
             case 3:
-                ViewQuestuion_version_1 Holder4 = (ViewQuestuion_version_1) holder;
+                ViewQuestuion_version_1 HolderQuestionVersion = (ViewQuestuion_version_1) holder;
+
+                List<String> answers = ( (Question_version_1) list.get(position)).getAnswers();
+
+                for (byte i = 0; i < 5; i++) {
+                    HolderQuestionVersion.buttons[i].setText(answers.get(i));
+                    HolderQuestionVersion.buttons[i].setId(i);
+
+                }
+
                 for(byte i = 0; i < 5;i++){
-                    Holder4.buttons[i].setOnClickListener(new View.OnClickListener() {
+
+                    HolderQuestionVersion.buttons[i].setOnClickListener(new View.OnClickListener() {
+
                         @Override
                         public void onClick(View view) {
-                            for (byte i = 0; i < 5;i++){
-                                if(Holder4.buttons[i].getId() == view.getId() ){
 
-                                    if(Holder4.buttons[i].getText().equals(Holder4.CorrectResponse))
-                                        Toast.makeText(Holder4.itemView.getContext(), "Correto", Toast.LENGTH_SHORT).show();
-                                    else
-                                        Toast.makeText(Holder4.itemView.getContext(), "Errado", Toast.LENGTH_SHORT).show();
-
-                                }
-
-                            }
+                                if(HolderQuestionVersion.buttons[view.getId()].getText().equals(((Question_version_1) list.get(HolderQuestionVersion.getAdapterPosition())).getCorrectAnswer()))
+                                Toast.makeText(HolderQuestionVersion.itemView.getContext(), "Correto", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(HolderQuestionVersion.itemView.getContext(), "Errado", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -354,7 +363,11 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
                 break;
             case 4:
 
-                ViewQuestuion_version_2 Holder5 = (ViewQuestuion_version_2) holder;
+                ViewQuestuion_version_2 HolderQuestionVersion2 = (ViewQuestuion_version_2) holder;
+
+                HolderQuestionVersion2.itens.addAll(( (Question_version_2) list.get(position)).getWords());
+
+                HolderQuestionVersion2.CorrectAnswer =  ((Question_version_2) list.get(position)).getCorrectAnswer() ;
 
                 break;
 

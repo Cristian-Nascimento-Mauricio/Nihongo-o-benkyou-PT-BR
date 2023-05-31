@@ -8,21 +8,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.adpter.RecyclerViewActivityDialogue;
-import com.example.nihongoobenkyou.adpter.RecyclerViewAdpterArticles;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Audio;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Inters_of_dialogues;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Question_version_1;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Question_version_2;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Speech;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class OpenDialogueActivity extends AppCompatActivity {
     Button button;
     int positon = 0;
-    List<Pair<String,ArrayList>> list = new ArrayList();
+    List<Inters_of_dialogues> list = new ArrayList();
     List<Pair<String,ArrayList>> listinha = new ArrayList();
 
     @Override
@@ -38,8 +41,6 @@ public class OpenDialogueActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         RecyclerViewActivityDialogue adpter = new RecyclerViewActivityDialogue(list);
 
-        Controller controller = new Controller(getApplicationContext());
-
         recyclerView.setAdapter(adpter);
 
         listinha.add(new Pair<String, ArrayList>("SpeechLeft",new ArrayList()));
@@ -48,12 +49,23 @@ public class OpenDialogueActivity extends AppCompatActivity {
         listinha.add(new Pair<String, ArrayList>("Question_version_1",new ArrayList()));
         listinha.add(new Pair<String, ArrayList>("Question_version_2",new ArrayList<>()));
 
+        List<String> n1 = Arrays.asList("私はAnnaですよろしくお願いします。", "僕はAnnaですよろしくお願いいたします。。",
+                "私はSakuraでよろしくお願いします。", "私はAnnnaですよろしくお願いいたします。", "僕はSakuraですよろしくお願いいたします。");
+        List<String> n2 = Arrays.asList("watashi", "ha", "roku", "sakura", "boku","wo","Anna","yoroshiku onegaishimasu" , "arigatou" , "sensei" , "-san" , "Nihon" );
+
+
+        Inters_of_dialogues[] dialogs = new Inters_of_dialogues[5];
+        dialogs[0] = new Speech("Right","Watashi ha foda");
+        dialogs[1] = new Speech("Left","Conseguir");
+        dialogs[2] = new Speech("Right","\uD83D\uDE0E");
+        dialogs[3] = new Question_version_1(n1);
+        dialogs[4] = new Question_version_2("watashi ha sakura-san",n2);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(positon < listinha.size()) {
-                    list.add(listinha.get(positon));
+                    list.add(dialogs[positon]);
                     adpter.notifyDataSetChanged();
 
                     positon++;

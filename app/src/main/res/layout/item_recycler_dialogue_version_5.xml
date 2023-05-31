@@ -13,11 +13,11 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:background="@drawable/img_button_turn_on_no_space" />
 
     <TextView
         android:id="@+id/answer"
