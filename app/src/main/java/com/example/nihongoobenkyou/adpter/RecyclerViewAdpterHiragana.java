@@ -310,7 +310,6 @@ public class RecyclerViewAdpterHiragana extends RecyclerView.Adapter<RecyclerVie
     }
     private int getAudio(String text ){
 
-        Log.i("vervalor", text +": "+ text.getBytes()[1]  + " " + (text.getBytes()[2] % 2 == 0 ? "par" : "impar") );
 
         if(text.getBytes()[1] == -127){
 

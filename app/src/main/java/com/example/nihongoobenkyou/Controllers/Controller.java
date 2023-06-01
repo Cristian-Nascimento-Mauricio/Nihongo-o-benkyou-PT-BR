@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.example.nihongoobenkyou.DataBase.AppDataBase;
 import com.example.nihongoobenkyou.classes.Articles_of_Article_Screen;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Speech;
 import com.example.nihongoobenkyou.classes.Nivels_of_Screen_Middle;
 import com.example.nihongoobenkyou.classes.Vocabulary_of_Vocabulary_Screen;
 
@@ -167,6 +168,12 @@ public class Controller extends AppDataBase  {
 
         }
         return list;
+    }
+
+    public List<Speech> SelecionarTextoEAudio(){
+
+        return getTextAndAudio();
+
     }
 
     public void Deletar(Nivels_of_Screen_Middle obj) {

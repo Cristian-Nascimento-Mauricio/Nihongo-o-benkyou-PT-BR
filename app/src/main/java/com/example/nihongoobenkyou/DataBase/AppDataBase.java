@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 
 import com.example.nihongoobenkyou.classes.Articles_of_Article_Screen;
+import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Speech;
 import com.example.nihongoobenkyou.classes.Nivels_of_Screen_Middle;
 import com.example.nihongoobenkyou.classes.Vocabulary_of_Vocabulary_Screen;
 
@@ -21,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AppDataBase extends SQLiteOpenHelper {
 
@@ -245,6 +247,35 @@ public class AppDataBase extends SQLiteOpenHelper {
         return list;
 
     }
+    @SuppressLint("Range")
+    public List<Speech> getTextAndAudio(){
+
+        openDataBase();
+
+        List<Speech> list = new ArrayList<>();
+        String SQL = "SELECT * FROM texts_and_audios ORDER by id";
+        Speech obj;
+
+        cursor = db.rawQuery(SQL,null);
+        Random random = new Random();
+
+        if(cursor.moveToFirst()){
+
+            do{
+                obj = new Speech(random.nextBoolean() ? "Right" : "Left" , cursor.getString(cursor.getColumnIndex("text")) , cursor.getString(cursor.getColumnIndex("audio")));
+
+                list.add(obj);
+
+            }while (cursor.moveToNext());
+
+        }
+
+        closeDataBase();
+
+        return list;
+    }
+
+
     public void upVersionTable(){
 
 
@@ -269,6 +300,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();
     }
+
 
 
 }

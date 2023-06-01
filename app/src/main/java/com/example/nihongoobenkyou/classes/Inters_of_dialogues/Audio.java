@@ -4,14 +4,14 @@ import android.graphics.Bitmap;
 
 public class Audio extends Inters_of_dialogues{
 
-    private Bitmap Audio;
+    private String Audio;
 
-    Audio(Bitmap Audio) {
+    public Audio(String  Audio) {
         super("Audio");
-
+        this.Audio = Audio;
     }
 
-    public Bitmap getAudio() {
+    public String getAudio() {
         return Audio;
     }
 

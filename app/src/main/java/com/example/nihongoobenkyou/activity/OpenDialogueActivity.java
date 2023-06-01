@@ -10,6 +10,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.nihongoobenkyou.Controllers.Controller;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.adpter.RecyclerViewActivityDialogue;
 import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Audio;
@@ -54,25 +55,30 @@ public class OpenDialogueActivity extends AppCompatActivity {
         List<String> n2 = Arrays.asList("watashi", "ha", "roku", "sakura", "boku","wo","Anna","yoroshiku onegaishimasu" , "arigatou" , "sensei" , "-san" , "Nihon" );
 
 
-        Inters_of_dialogues[] dialogs = new Inters_of_dialogues[5];
-        dialogs[0] = new Speech("Right","Watashi ha foda");
-        dialogs[1] = new Speech("Left","Conseguir");
-        dialogs[2] = new Speech("Right","\uD83D\uDE0E");
-        dialogs[3] = new Question_version_1(n1);
-        dialogs[4] = new Question_version_2("watashi ha sakura-san",n2);
+        Controller controller = new Controller(this);
+
+        List<Speech> listSpeech = controller.SelecionarTextoEAudio();
+
+        Inters_of_dialogues[] dialogs = new Inters_of_dialogues[6];
+        dialogs[0] = listSpeech.get(0);
+        dialogs[1] = listSpeech.get(1);
+        dialogs[2] = listSpeech.get(2);
+        dialogs[3] = new Audio("audios/speechs/audio_1.mp3");
+        dialogs[4] = new Audio("audios/speechs/audio_1.mp3");
+        //dialogs[4] = new Question_version_1(n1);
+        dialogs[5] = new Question_version_2("watashi ha sakura-san",n2);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(positon < listinha.size()) {
+                if(positon < 6) {
                     list.add(dialogs[positon]);
-                    adpter.notifyDataSetChanged();
+                    adpter.notifyItemInserted(positon);
 
                     positon++;
                 }
             }
         });
-
 
 
     }
