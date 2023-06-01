@@ -52,6 +52,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
@@ -91,6 +94,7 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
         ImageButton imageButton;
         TextView textView;
         MediaPlayer mediaPlayer;
+        Thread thread;
 
         public ViewHolderSpeechRight(View itemView) {
             super(itemView);
@@ -103,6 +107,8 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
                 @Override
                 public void onClick(View view) {
                     mediaPlayer.start();
+                    thread = new Thread();
+                    thread.start();
                 }
             });
 
@@ -113,6 +119,8 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
         ImageButton imageButton;
         MediaPlayer mediaPlayer;
         ProgressBar progressBar;
+        Thread thread;
+        int currentPosition;
 
         public ViewHolderAudio(View itemView) {
             super(itemView);
@@ -121,20 +129,8 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
             progressBar = itemView.findViewById(R.id.seekBar);
             assetManager = itemView.getContext().getAssets();
 
-
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mediaPlayer.isPlaying())
-                        mediaPlayer.seekTo(0);
-
-                    mediaPlayer.start();
-
-                }
-            });
-
-
         }
+
     }
     public class ViewQuestuion_version_1 extends RecyclerView.ViewHolder{
 
@@ -375,6 +371,28 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
 
                 HolderAudio.mediaPlayer = new MediaPlayer();
 
+                class MyRunnable implements Runnable {
+                    @Override
+                    public void run() {
+                        while (HolderAudio.mediaPlayer != null && !HolderAudio.thread.isInterrupted()) {
+
+                            HolderAudio.currentPosition = HolderAudio.mediaPlayer.getCurrentPosition();
+                            HolderAudio.progressBar.setProgress(HolderAudio.currentPosition);
+                            Log.i( "Valor", "" + HolderAudio.mediaPlayer.getCurrentPosition() + " / " + HolderAudio.mediaPlayer.getDuration() );
+
+                        }
+                    }
+                }
+                HolderAudio.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        HolderAudio.thread.interrupt();
+                        HolderAudio.progressBar.setProgress(HolderAudio.mediaPlayer.getDuration());
+                        Log.i( "Valor", "" + HolderAudio.currentPosition  );
+
+                    }
+                });
+
                 try {
                     assetFileDescriptor = assetManager.openFd( ((Audio) list.get(HolderAudio.getAdapterPosition())).getAudio() );
                     HolderAudio.mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
@@ -384,21 +402,24 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Thread thread = new Thread(() -> {
-                    while (HolderAudio.mediaPlayer != null && !Thread.currentThread().isInterrupted() ) {
-                        int currentPosition = HolderAudio.mediaPlayer.getCurrentPosition();
-                        HolderAudio.progressBar.setProgress(currentPosition);
-                        Log.i( "Valor", "Valor: " + currentPosition  + " / "+ HolderAudio.mediaPlayer.getDuration() );
-                    }
+                HolderAudio.thread = new Thread(new MyRunnable());
 
-                });
-                thread.start();
+                HolderAudio.thread.start();
 
-                HolderAudio.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                HolderAudio.imageButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        thread.interrupt();
-                        HolderAudio.progressBar.setProgress(HolderAudio.mediaPlayer.getDuration());
+                    public void onClick(View view) {
+                        if(HolderAudio.mediaPlayer.isPlaying())
+                            HolderAudio.mediaPlayer.seekTo(0);
+
+                        do{
+                            HolderAudio.thread.interrupt();
+                        }while (HolderAudio.thread.isInterrupted());
+
+                        HolderAudio.mediaPlayer.start();
+                        HolderAudio.thread = new Thread(new MyRunnable());
+                        HolderAudio.thread.start();
+
                     }
                 });
 
