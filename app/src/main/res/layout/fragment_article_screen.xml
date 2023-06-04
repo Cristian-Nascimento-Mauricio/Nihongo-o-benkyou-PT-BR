@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B73A3A"
+    android:background="@drawable/img_1"
     tools:context=".ViewPager.Fragments.hiraganaScreenFragment">
 
 
@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="75dp"
-        android:paddingBottom="100dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:paddingBottom="100dp" />
 </RelativeLayout>

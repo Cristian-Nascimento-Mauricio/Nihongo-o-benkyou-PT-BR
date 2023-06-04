@@ -2,22 +2,19 @@ package com.example.nihongoobenkyou.adpter;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.os.Build;
+import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nihongoobenkyou.Interfaces.InterfaceAnswerAndItens;
+import com.example.nihongoobenkyou.Interfaces.InterfaceCondition;
 import com.example.nihongoobenkyou.R;
 import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Audio;
 import com.example.nihongoobenkyou.classes.Inters_of_dialogues.Inters_of_dialogues;
@@ -44,90 +41,49 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxItemDecoration;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-
-import org.w3c.dom.Text;
+import com.google.android.material.transition.Hold;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.LogRecord;
 
 
-public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<Inters_of_dialogues> list;
-    AssetManager assetManager;
-    AssetFileDescriptor assetFileDescriptor;
+    InterfaceCondition interfaceCondition;
+    PlayerAudio playerAudio;
 
-    public RecyclerViewActivityDialogue( List<Inters_of_dialogues> list){
+    public RecyclerViewActivityDialogue(List<Inters_of_dialogues> list , InterfaceCondition interfaceCondition, Context context){
         this.list = list;
+        this.interfaceCondition = interfaceCondition;
+        this.playerAudio = new PlayerAudio(context);
 
     }
 
-    public class ViewHolderSpeechLeft extends RecyclerView.ViewHolder{
+    public class ViewHolderSpeech extends RecyclerView.ViewHolder{
         ImageButton imageButton;
         TextView textView;
-        MediaPlayer mediaPlayer;
 
-        public ViewHolderSpeechLeft(View itemView) {
+        public ViewHolderSpeech(View itemView) {
             super(itemView);
-            imageButton = itemView.findViewById(R.id.btnAudio);
-            textView = itemView.findViewById(R.id.txtdialogue);
-
-            assetManager = itemView.getContext().getAssets();
-
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mediaPlayer.start();
-                }
-            });
+            imageButton = itemView.findViewById(R.id.ButtonAudio);
+            textView = itemView.findViewById(R.id.TextSpeech);
 
 
         }
     }
-    public class ViewHolderSpeechRight extends RecyclerView.ViewHolder{
-        ImageButton imageButton;
-        TextView textView;
-        MediaPlayer mediaPlayer;
-        Thread thread;
 
-        public ViewHolderSpeechRight(View itemView) {
-            super(itemView);
-            imageButton = itemView.findViewById(R.id.btnAudio2);
-            textView = itemView.findViewById(R.id.txtdialogue2);
-
-            assetManager = itemView.getContext().getAssets();
-
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mediaPlayer.start();
-                    thread = new Thread();
-                    thread.start();
-                }
-            });
-
-        }
-
-    }
     public class ViewHolderAudio extends RecyclerView.ViewHolder {
         ImageButton imageButton;
-        MediaPlayer mediaPlayer;
         ProgressBar progressBar;
-        Thread thread;
-        int currentPosition;
 
         public ViewHolderAudio(View itemView) {
             super(itemView);
             imageButton = itemView.findViewById(R.id.btnAudio3);
 
             progressBar = itemView.findViewById(R.id.seekBar);
-            assetManager = itemView.getContext().getAssets();
 
         }
 
@@ -212,9 +168,11 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
 
             Toast.makeText(itemView.getContext(), TextAnswer.trim() + "\n" + CorrectAnswer.trim(), Toast.LENGTH_LONG).show();
 
-
-            if(TextAnswer.replaceAll("\\s", "").equals(CorrectAnswer.replaceAll("\\s","")))
+            if(TextAnswer.replaceAll("\\s", "").equals(CorrectAnswer.replaceAll("\\s",""))) {
                 Toast.makeText(itemView.getContext(), "Correto", Toast.LENGTH_SHORT).show();
+                interfaceCondition.Codition(true);
+            }else
+                interfaceCondition.Codition(false);
 
         }
         @Override
@@ -245,8 +203,13 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
                 spannable.setSpan(clickableSpan,each.getStartPosition(),each.getEndPosition(),Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
             }
 
-
             textView.setText(spannable);
+
+            if(TextAnswer.replaceAll("\\s", "").equals(CorrectAnswer.replaceAll("\\s",""))) {
+                Toast.makeText(itemView.getContext(), "Correto", Toast.LENGTH_SHORT).show();
+                interfaceCondition.Codition(true);
+            }else
+                interfaceCondition.Codition(false);
 
         }
 
@@ -284,20 +247,20 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
         switch (viewType){
             case 0:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_1, parent, false);
-
-                return new ViewHolderSpeechLeft(itemView);
+                return new ViewHolderSpeech(itemView);
             case 1:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_2, parent, false);
-
-                return new ViewHolderSpeechRight(itemView);
+                return new ViewHolderSpeech(itemView);
             case 2:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_3, parent, false);
                 return  new ViewHolderAudio(itemView);
             case 3:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_6, parent, false);
+                return  new ViewHolderAudio(itemView);
+            case 4:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_4, parent, false);
                 return  new ViewQuestuion_version_1(itemView);
-
-            case 4:
+            case 5:
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_dialogue_version_5, parent, false);
                 return new ViewQuestuion_version_2(itemView);
             default:
@@ -315,12 +278,14 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
                 return 0;
             case "SpeechRight":
                 return 1;
-            case "Audio":
+            case "AudioLeft":
                 return 2;
-            case "Question_version_1":
+            case "AudioRight":
                 return 3;
-            case "Question_version_2":
+            case "Question_version_1":
                 return 4;
+            case "Question_version_2":
+                return 5;
             default:
                 return -1;
 
@@ -332,101 +297,21 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
 
         switch (holder.getItemViewType()){
             case 0:
-                ViewHolderSpeechLeft HolderSpechLeft = (ViewHolderSpeechLeft) holder;
-
-                HolderSpechLeft.textView.setText( ((Speech) list.get(position)).getText() );
-                HolderSpechLeft.mediaPlayer = new MediaPlayer();
-
-                try {
-                    assetFileDescriptor = assetManager.openFd(((Speech) list.get(HolderSpechLeft.getAdapterPosition())).getAudio());
-                    HolderSpechLeft.mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-                    HolderSpechLeft.mediaPlayer.prepare();
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                speech(holder);
                 break;
             case 1:
-                ViewHolderSpeechRight HolderSpechRight = (ViewHolderSpeechRight) holder;
-
-                HolderSpechRight.textView.setText(((Speech) list.get(position)).getText());
-                HolderSpechRight.mediaPlayer = new MediaPlayer();
-
-                try {
-                    assetFileDescriptor = assetManager.openFd(((Speech) list.get(HolderSpechRight.getAdapterPosition())).getAudio());
-                    HolderSpechRight.mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-                    HolderSpechRight.mediaPlayer.prepare();
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
+                speech(holder);
                 break;
             case 2:
-                ViewHolderAudio HolderAudio = (ViewHolderAudio) holder;
-
-                HolderAudio.mediaPlayer = new MediaPlayer();
-
-                class MyRunnable implements Runnable {
-                    @Override
-                    public void run() {
-                        while (HolderAudio.mediaPlayer != null && !HolderAudio.thread.isInterrupted()) {
-
-                            HolderAudio.currentPosition = HolderAudio.mediaPlayer.getCurrentPosition();
-                            HolderAudio.progressBar.setProgress(HolderAudio.currentPosition);
-                            Log.i( "Valor", "" + HolderAudio.mediaPlayer.getCurrentPosition() + " / " + HolderAudio.mediaPlayer.getDuration() );
-
-                        }
-                    }
-                }
-                HolderAudio.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        HolderAudio.thread.interrupt();
-                        HolderAudio.progressBar.setProgress(HolderAudio.mediaPlayer.getDuration());
-                        Log.i( "Valor", "" + HolderAudio.currentPosition  );
-
-                    }
-                });
-
-                try {
-                    assetFileDescriptor = assetManager.openFd( ((Audio) list.get(HolderAudio.getAdapterPosition())).getAudio() );
-                    HolderAudio.mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-                    HolderAudio.mediaPlayer.prepare();
-                    HolderAudio.progressBar.setMax(HolderAudio.mediaPlayer.getDuration());
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                HolderAudio.thread = new Thread(new MyRunnable());
-
-                HolderAudio.thread.start();
-
-                HolderAudio.imageButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(HolderAudio.mediaPlayer.isPlaying())
-                            HolderAudio.mediaPlayer.seekTo(0);
-
-                        do{
-                            HolderAudio.thread.interrupt();
-                        }while (HolderAudio.thread.isInterrupted());
-
-                        HolderAudio.mediaPlayer.start();
-                        HolderAudio.thread = new Thread(new MyRunnable());
-                        HolderAudio.thread.start();
-
-                    }
-                });
-
-                HolderAudio.mediaPlayer.start();
+                audio(holder);
 
                 break;
             case 3:
+                audio(holder);
+
+                break;
+            case 4:
+                interfaceCondition.Codition(false);
                 ViewQuestuion_version_1 HolderQuestionVersion = (ViewQuestuion_version_1) holder;
 
                 List<String> answers = ( (Question_version_1) list.get(position)).getAnswers();
@@ -434,7 +319,6 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
                 for (byte i = 0; i < 5; i++) {
                     HolderQuestionVersion.buttons[i].setText(answers.get(i));
                     HolderQuestionVersion.buttons[i].setId(i);
-
                 }
 
                 for(byte i = 0; i < 5;i++){
@@ -444,17 +328,21 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
                         @Override
                         public void onClick(View view) {
 
-                                if(HolderQuestionVersion.buttons[view.getId()].getText().equals(((Question_version_1) list.get(HolderQuestionVersion.getAdapterPosition())).getCorrectAnswer()))
-                                Toast.makeText(HolderQuestionVersion.itemView.getContext(), "Correto", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(HolderQuestionVersion.itemView.getContext(), "Errado", Toast.LENGTH_SHORT).show();
+                                if(HolderQuestionVersion.buttons[view.getId()].getText().equals(((Question_version_1) list.get(HolderQuestionVersion.getAdapterPosition())).getCorrectAnswer())) {
+                                    interfaceCondition.Codition(true);
+                                    Toast.makeText(HolderQuestionVersion.itemView.getContext(), "Correto", Toast.LENGTH_SHORT).show();
+                                }
+                            else {
+                                    interfaceCondition.Codition(false);
+                                    Toast.makeText(HolderQuestionVersion.itemView.getContext(), "Errado", Toast.LENGTH_SHORT).show();
+                                }
                         }
                     });
 
                 }
                 break;
-            case 4:
-
+            case 5:
+                interfaceCondition.Codition(false);
                 ViewQuestuion_version_2 HolderQuestionVersion2 = (ViewQuestuion_version_2) holder;
 
                 HolderQuestionVersion2.itens.addAll(( (Question_version_2) list.get(position)).getWords());
@@ -468,7 +356,132 @@ public class RecyclerViewActivityDialogue extends RecyclerView.Adapter<RecyclerV
         }
 
     }
+    public void speech(RecyclerView.ViewHolder holder){
+        ViewHolderSpeech HolderSpech = (ViewHolderSpeech) holder;
 
+        HolderSpech.textView.setText(((Speech) list.get(HolderSpech.getAdapterPosition())).getText());
+
+
+        HolderSpech.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                playerAudio.play(HolderSpech);
+                HolderSpech.imageButton.setEnabled(false);
+
+                }
+
+        });
+
+    }
+    public void audio (RecyclerView.ViewHolder holder){
+
+        ViewHolderAudio HolderAudio = (ViewHolderAudio) holder;
+
+        playerAudio.playAudio(HolderAudio, HolderAudio.progressBar);
+
+        HolderAudio.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playerAudio.playAudio(HolderAudio,HolderAudio.progressBar);
+               /*
+                HolderAudio.imageButton.setEnabled(false);
+
+                Handler handler = new Handler();
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        HolderAudio.imageButton.setEnabled(true);
+                    }
+                },5000);
+*/
+            }
+        });
+
+
+
+    }
+
+    public class PlayerAudio extends MediaPlayer{
+        AssetManager assetManager;
+        AssetFileDescriptor assetFileDescriptor;
+        Thread thread;
+        int currentPosition;
+
+        public PlayerAudio(Context context) {
+            this.assetManager = context.getAssets();
+        }
+
+        public void play(RecyclerView.ViewHolder holder) {
+            if(isPlaying())
+                stop();
+
+            reset();
+            try {
+                assetFileDescriptor = assetManager.openFd(((Speech) list.get(holder.getAdapterPosition())).getAudio());
+                setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                prepare();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            start();
+        }
+
+        public void playAudio(RecyclerView.ViewHolder holder,ProgressBar progressBar){
+            if (isPlaying()) {
+                stop();
+                progressBar.setProgress(0);
+            }
+            reset();
+
+            try {
+                assetFileDescriptor = assetManager.openFd( ((Audio) list.get(holder.getAdapterPosition())).getAudio() );
+                setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+                prepare();
+                progressBar.setMax(getDuration());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    thread.interrupt();
+                    currentPosition = getDuration();
+                    progressBar.setProgress(getDuration());
+                    Log.i( "Valor", "" + currentPosition  );
+
+                }
+            });
+
+            class MyRunnable implements Runnable {
+                @Override
+                public void run() {
+                    currentPosition = 0;
+
+                    while (currentPosition < getDuration()) {
+                        currentPosition = getCurrentPosition();
+                        progressBar.setProgress(currentPosition);
+                        Log.i( "Valor", "" + getCurrentPosition() + " / " + getDuration());
+                    }
+
+                }
+            }
+
+            start();
+
+            thread = new Thread(new MyRunnable());
+
+            thread.start();
+
+        }
+
+
+    }
     @Override
     public int getItemCount() {
         return list.size();

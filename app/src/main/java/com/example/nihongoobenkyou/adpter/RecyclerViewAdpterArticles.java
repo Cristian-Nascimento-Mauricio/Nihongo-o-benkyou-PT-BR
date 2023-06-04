@@ -19,7 +19,7 @@ import java.util.List;
 
 public class RecyclerViewAdpterArticles extends RecyclerView.Adapter<RecyclerViewAdpterArticles.MyViewHolder> {
 
-    private List<Articles_of_Article_Screen> list = new ArrayList<>();
+    private List<Articles_of_Article_Screen> list;
     private InterfaceHTML interfaceHTML;
     public class MyViewHolder extends RecyclerView.ViewHolder{
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conversation>
+
+    <Speeach>
+        <direction>Left</direction>
+        <text>すみません、あなたは新しい学生ですか。</text>
+        <audio>Audio_1</audio>
+    </Speeach>
+    <Speeach>
+        <direction>Right</direction>
+        <text>すみません、あなたは新しい学生ですか。</text>
+        <audio>Audio_2</audio>
+    </Speeach>
+    <Audio>
+        <direction>Left</direction>
+        <path></path>
+    </Audio>
+
+</conversation>

@@ -26,30 +26,86 @@ import java.util.Random;
 
 public class AppDataBase extends SQLiteOpenHelper {
 
-    private Context mContext;
-    public static  String db_NAME = "tabela.db";
+    public static  String db_NAME = "database.db";
     private static final int db_version = 1;
 
     Cursor cursor;
-
     SQLiteDatabase db;
 
     public AppDataBase(@Nullable Context context) {
-        super(context, null, null,db_version);
-        mContext = context;
+        super(context, db_NAME, null, db_version);
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        mContext.deleteDatabase(db_NAME);
+        String rcyarticles = "CREATE TABLE rcyarticles (" +
+                "id INTEGER PRIMARY KEY ," +
+                "titulo TEXT," +
+                "previa TEXT" +
+                ")";
+
+        String rcydialogue = "CREATE TABLE \"rcydialogue\" (\n" +
+                "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "\t\"titulo\"\tINTEGER,\n" +
+                "\t\"speech1\"\tTEXT,\n" +
+                "\t\"speech2\"\tTEXT,\n" +
+                "\t\"speech3\"\tTEXT\n" +
+                ")";
+
+        String rcylevel = "CREATE TABLE \"rcylevel\" (\n" +
+                "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "\t\"level\"\tINTEGER DEFAULT -1,\n" +
+                "\t\"text\"\tTEXT,\n" +
+                "\t\"drawableBlocked\"\tBLOB,\n" +
+                "\t\"drawableUnblocked\"\tBLOB,\n" +
+                "\t\"drawableFinished\"\tBLOB\n" +
+                ")" ;
+
+        String rcykana = "CREATE TABLE \"rcykana\" (\n" +
+                "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "\t\"hiragana\"\tTEXT,\n" +
+                "\t\"katakana\"\tTEXT\n" +
+                ")";
+
+
+        String rcykanji = "CREATE TABLE \"rcykanji\" (\n" +
+                "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "\t\"texto\"\tTEXT\n" +
+                ")";
+
+        sqLiteDatabase.execSQL(rcyarticles);
+        sqLiteDatabase.execSQL(rcykanji);
+        sqLiteDatabase.execSQL(rcydialogue);
+        sqLiteDatabase.execSQL(rcykana);
+        sqLiteDatabase.execSQL(rcylevel);
+
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int olddb, int newdb) {
+        /*
+        String dropTable = "DROP TABLE IF EXISTS rcylevel";
+
+        sqLiteDatabase.execSQL(dropTable);
+
+        onCreate(sqLiteDatabase);
+        */
+    }
+
+    public void start(){
+
+        db = getWritableDatabase();
+        ContentValues dataBase = new ContentValues();
+        dataBase.put("titulo","texto");
+        dataBase.put("previa","mais texto");
+
+        db.insert("rcyarticles",null,dataBase);
+
 
     }
+
 
     public void insert(String table, ContentValues dados){
 
@@ -70,7 +126,6 @@ public class AppDataBase extends SQLiteOpenHelper {
 
     @SuppressLint("Range")
     public List<Nivels_of_Screen_Middle> getAll(){
-        openDataBase();
 
         List<Nivels_of_Screen_Middle> list = new ArrayList<>();
         String SQL = "SELECT * FROM rcylevel ORDER by id";
@@ -94,7 +149,6 @@ public class AppDataBase extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
 
         }
-        closeDataBase();
 
         return list;
     }
@@ -102,7 +156,6 @@ public class AppDataBase extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public List<Vocabulary_of_Vocabulary_Screen> getAllVocabulary(){
 
-        openDataBase();
 
         List<Vocabulary_of_Vocabulary_Screen> list = new ArrayList<>();
         String SQL = "SELECT * FROM rcydialogue ORDER by id";
@@ -122,7 +175,6 @@ public class AppDataBase extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        closeDataBase();
 
         return list;
 
@@ -131,7 +183,6 @@ public class AppDataBase extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public List<String> getAllKanjis(){
 
-        openDataBase();
         String SQL = "SELECT * FROM rcykanji ORDER by id";
         List<String> list = new ArrayList<>();
 
@@ -146,14 +197,10 @@ public class AppDataBase extends SQLiteOpenHelper {
 
         }
 
-        closeDataBase();
-
         return list;
     }
     @SuppressLint("Range")
     public List<Articles_of_Article_Screen> getAllArtigos(){
-
-        openDataBase();
 
         String SQL = "SELECT * FROM rcyarticles ORDER by id";
         List<Articles_of_Article_Screen> list = new ArrayList<>();
@@ -174,14 +221,10 @@ public class AppDataBase extends SQLiteOpenHelper {
 
         }
 
-        closeDataBase();
-
         return list;
 
     }
     public int getSize(){
-
-        openDataBase();
 
         Cursor cursor = db.rawQuery("SELECT count(*) FROM sqlite_master WHERE type='table'", null);
         int numTables = 0;
@@ -204,7 +247,6 @@ public class AppDataBase extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public List<String> getHiraganar(){
 
-        openDataBase();
         String SQL = "SELECT * FROM rcykana ORDER by id";
         List<String> list = new ArrayList<>();
 
@@ -219,15 +261,12 @@ public class AppDataBase extends SQLiteOpenHelper {
 
         }
 
-        closeDataBase();
 
         return list;
-
 
     }    @SuppressLint("Range")
     public List<String> getkataka(){
 
-        openDataBase();
         String SQL = "SELECT * FROM rcykana ORDER by id";
         List<String> list = new ArrayList<>();
 
@@ -242,15 +281,12 @@ public class AppDataBase extends SQLiteOpenHelper {
 
         }
 
-        closeDataBase();
-
         return list;
 
     }
     @SuppressLint("Range")
     public List<Speech> getTextAndAudio(){
 
-        openDataBase();
 
         List<Speech> list = new ArrayList<>();
         String SQL = "SELECT * FROM texts_and_audios ORDER by id";
@@ -270,35 +306,9 @@ public class AppDataBase extends SQLiteOpenHelper {
 
         }
 
-        closeDataBase();
+
 
         return list;
-    }
-
-
-    public void upVersionTable(){
-
-
-    }
-
-    private void openDataBase() {
-        String dbPath = mContext.getDatabasePath(db_NAME).getPath();
-        if(db != null && db.isOpen()){
-            return;
-        }
-        db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
-    private void closeDataBase(){
-        if (db != null) {
-            db.close();
-            db = null;
-        }
-    }
-
-    private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
     }
 
 
