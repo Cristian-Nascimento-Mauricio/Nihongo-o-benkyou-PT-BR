@@ -2,33 +2,29 @@ package com.example.nihongoobenkyou.classes;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.example.nihongoobenkyou.R;
 
 public class Nivels_of_Screen_Middle {
 
     private int id;
     private int progressBar =0;
     private String textView;
-    private Bitmap[] drawable = new Bitmap[3];
+    private String drawable;
 
     @Override
     public String toString() {
         return String.valueOf(progressBar);
     }
 
-    public Nivels_of_Screen_Middle(int progressBar, String textView, Bitmap drawable) {
+    public Nivels_of_Screen_Middle(int progressBar, String textView, String drawable) {
         this.progressBar = progressBar;
         this.textView = textView;
-        this.drawable[0] = drawable;
+        this.drawable = drawable;
 
     }
+
+
+
+
     public int getlevel(){
         return progressBar;
     }
@@ -72,12 +68,8 @@ public class Nivels_of_Screen_Middle {
         this.textView = textView;
     }
 
-    public Bitmap getImageView() {
-        return drawable[0];
-    }
-
-    public void setImageView(Bitmap drawable) {
-        this.drawable[0] = drawable;
+    public String getImageView() {
+        return drawable;
     }
 
     public int getIdOfdb() {
@@ -88,12 +80,13 @@ public class Nivels_of_Screen_Middle {
         this.id = id;
     }
 
-    public Bitmap[] getDrawable() {
+    public String getDrawable() {
         return drawable;
     }
 
-    public void setDrawable(Bitmap[] drawable) {
+    public void setDrawable(String drawable) {
         this.drawable = drawable;
     }
+
 
 }

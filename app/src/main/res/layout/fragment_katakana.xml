@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CB27DD"
-    tools:context=".ViewPager.FragmentHiraganaKatakana.KatakanaFragment" >
+    android:background="@android:color/transparent"
+    tools:context=".ViewPager.FragmentHiraganaKatakana.KatakanaFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerKatakana"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="100dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:paddingBottom="100dp" />
 
 </RelativeLayout>

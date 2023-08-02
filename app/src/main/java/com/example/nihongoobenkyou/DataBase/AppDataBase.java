@@ -84,31 +84,24 @@ public class AppDataBase extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int olddb, int newdb) {
-        /*
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int OldVersionDB, int NewVersionDB) {
+
         String dropTable = "DROP TABLE IF EXISTS rcylevel";
 
         sqLiteDatabase.execSQL(dropTable);
 
         onCreate(sqLiteDatabase);
-        */
+
     }
 
-    public void start(){
-
+    public void upgradeDB(){
         db = getWritableDatabase();
-        ContentValues dataBase = new ContentValues();
-        dataBase.put("titulo","texto");
-        dataBase.put("previa","mais texto");
-
-        db.insert("rcyarticles",null,dataBase);
-
-
+        onUpgrade(db,db_version,2);
     }
-
 
     public void insert(String table, ContentValues dados){
 
+        db = getWritableDatabase();
         db.insert(table,null,dados);
 
     }
@@ -130,6 +123,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         List<Nivels_of_Screen_Middle> list = new ArrayList<>();
         String SQL = "SELECT * FROM rcylevel ORDER by id";
         Nivels_of_Screen_Middle obj;
+        db = getReadableDatabase();
 
         cursor = db.rawQuery(SQL,null);
 
@@ -139,11 +133,7 @@ public class AppDataBase extends SQLiteOpenHelper {
                 obj = new Nivels_of_Screen_Middle(
                         cursor.getInt(cursor.getColumnIndex("level")),
                         cursor.getString(cursor.getColumnIndex("text")),
-                        BitmapFactory.decodeByteArray( cursor.
-                                        getBlob(cursor.getColumnIndex("drawableUnblocked")),
-                                0,
-                                cursor.getBlob(cursor.getColumnIndex("drawableUnblocked")).length));
-                obj.setIdOfdb(cursor.getInt(cursor.getColumnIndex("id")));
+                        cursor.getString(cursor.getColumnIndex("drawableBlocked")));
                 list.add(obj);
 
             }while (cursor.moveToNext());
@@ -161,6 +151,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         String SQL = "SELECT * FROM rcydialogue ORDER by id";
         Vocabulary_of_Vocabulary_Screen obj;
 
+        db = getWritableDatabase();
         cursor = db.rawQuery(SQL,null);
 
         if(cursor.moveToFirst()) {
@@ -186,6 +177,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         String SQL = "SELECT * FROM rcykanji ORDER by id";
         List<String> list = new ArrayList<>();
 
+        db = getReadableDatabase();
         cursor = db.rawQuery(SQL,null);
 
         if(cursor.moveToFirst()){
@@ -205,6 +197,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         String SQL = "SELECT * FROM rcyarticles ORDER by id";
         List<Articles_of_Article_Screen> list = new ArrayList<>();
 
+        db = getReadableDatabase();
         cursor = db.rawQuery(SQL,null);
 
         Articles_of_Article_Screen obj;
@@ -250,6 +243,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         String SQL = "SELECT * FROM rcykana ORDER by id";
         List<String> list = new ArrayList<>();
 
+        db = getReadableDatabase();
         cursor = db.rawQuery(SQL,null);
 
 
@@ -270,7 +264,7 @@ public class AppDataBase extends SQLiteOpenHelper {
         String SQL = "SELECT * FROM rcykana ORDER by id";
         List<String> list = new ArrayList<>();
 
-
+        db = getWritableDatabase();
         cursor = db.rawQuery(SQL,null);
 
         if(cursor.moveToFirst()){
@@ -305,7 +299,6 @@ public class AppDataBase extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
 
         }
-
 
 
         return list;
