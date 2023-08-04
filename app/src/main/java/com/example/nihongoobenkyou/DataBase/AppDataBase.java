@@ -27,7 +27,7 @@ import java.util.Random;
 public class AppDataBase extends SQLiteOpenHelper {
 
     public static  String db_NAME = "database.db";
-    private static final int db_version = 1;
+    private static int db_version = 1;
 
     Cursor cursor;
     SQLiteDatabase db;
@@ -303,8 +303,12 @@ public class AppDataBase extends SQLiteOpenHelper {
 
         return list;
     }
+    public static int getDb_version() {
+        return db_version;
+    }
 
-
-
+    public static void setDb_version(int db_version) {
+        AppDataBase.db_version = db_version;
+    }
 }
 
