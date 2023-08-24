@@ -41,6 +41,7 @@ public class OpenDialogueActivity extends AppCompatActivity implements Interface
     int positon = 0;
     Boolean Boolean= true;
     List<Inters_of_dialogues> list = new ArrayList();
+    List<Inters_of_dialogues> dialogs = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,52 +58,18 @@ public class OpenDialogueActivity extends AppCompatActivity implements Interface
 
         recyclerView.setAdapter(adpter);
 
-        List<String> n1 = Arrays.asList("初めまして、さくらさん。", "初めまして、アンナ。",
-                "初まして、アンナ。", "初めまして、さくらさん。", "初めまして、ぼろ疎なる");
-        List<String> n2 = Arrays.asList("ブラジル人、","日本語", "を","勉強", "しますのために","行きましたへ","日本。");
-        List<String> n3 = Arrays.asList("字幕なしでアニメを見ます。", "字幕でアニメを見ます。" ,"字幕なしでanimeを見ます。","字幕なしでアニメを見ました。","字幕なしであにめを見ます。" );
-        List<String> n4 = Arrays.asList("すごい、あなたのお気に入りのアニメは何ですか。" , "あなたのお気に入りのアニメは何ですか。" , "すごい、あなたのお気にりのアニメは何ですか。",
-                "すごい、あなたのお気に入りのアニメは何です。" , "あなたのお気に入りのアニメは何です。");
-        List<String> n5 =  Arrays.asList("私もそのアニメが大好きです。" , "私はそのアニメが大好きです。" , "僕もそのアニメが大好きです。" , "僕はそのアニメが大好きです。" , "さくらもそのアニメが大好きです。" );
-
-
-        Inters_of_dialogues[] dialogs = new Inters_of_dialogues[17];
-
-
-        /*
-        dialogs[0] = new Speech("Left","すみません、あなたは新しい学生ですか。","audios/speechs/sakura_1.mp3");
-        dialogs[1] = new Speech("Right","はい、私は新しい学生ですとアンナと言います。","audios/speechs/anna_1.mp3");
-        dialogs[2] = new Speech("Left","初めまして、私はさくらです。","audios/speechs/sakura_2.mp3");
-        dialogs[3] = new Audio("audios/speechs/anna_2.mp3","Right");
-        dialogs[4] = new Question_version_1(n1);
-        dialogs[5] = new Speech("Left","アンナはどこ出身ですか。","audios/speechs/sakura_3.mp3");
-        dialogs[6] = new Audio("audios/speechs/anna_3.mp3","Right");
-        dialogs[7] = new Question_version_2("ブラジル人、日本語を勉強しますのために行きましたへ日本。",n2);
-        dialogs[8] = new Speech("Left","すごいです、私はいつもブラジルについてたくさん聞きます、サンバとカーニバルとリオデジャネイロ。なぜはアンナ日本語をべんきょうしますほしいですか。",
-                "audios/speechs/sakura_4.mp3");
-        dialogs[9] = new Audio("audios/speechs/anna_4.mp3","Right");
-        dialogs[10] = new Question_version_1(n3);
-        dialogs[11] = new Audio("audios/speechs/sakura_5.mp3","Left");
-        dialogs[12] = new Question_version_1(n4);
-        dialogs[13] = new Speech("Right","私のお気に入りのアニメは、伸びる力を持つ海賊についてのものです。","audios/speechs/anna_5.mp3");
-        dialogs[14] = new Audio("audios/speechs/sakura_6.mp3","Left");
-        dialogs[15] = new Question_version_1(n5);
-        dialogs[16] = new Speech("Right", "Para béns, você completou o desafio ","");
-        */
-
         try {
-            dialogs[0] = lerXML(this);
+            dialogs = lerXML(this);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i("XML", "Deu pau");
         }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(Boolean) {
-                    if (positon < dialogs.length) {
-                        list.add(dialogs[positon]);
+                    if (positon < dialogs.size()) {
+                        list.add(dialogs.get(positon));
                         adpter.notifyItemInserted(positon);
                         recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
 
@@ -118,38 +85,60 @@ public class OpenDialogueActivity extends AppCompatActivity implements Interface
     public void Codition(Boolean aBoolean) {
         Boolean = aBoolean;
     }
-    private static Inters_of_dialogues lerXML(Context context) throws Exception{
+
+    private static List<Inters_of_dialogues> lerXML(Context context) throws Exception{
+
+        List<Inters_of_dialogues> list = new ArrayList<>();
+
 
         AssetManager assetManager = context.getAssets();
-        InputStream inputStream = assetManager.open("dialogues/conversation_01/conversation.xml");        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        InputStream inputStream = assetManager.open("dialogues/conversation_01/conversation.xml");
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(inputStream);
 
-        Log.i("XML", "Testando ");
-        System.out.println("Root do elemento: " + doc.getDocumentElement().getNodeName());
-        NodeList nList = doc.getElementsByTagName("Speeach");
-        /*
-        for (int temp = 0; temp < nList.getLength(); temp++) {
-            Node nNode = nList.item(temp);
+        doc.getDocumentElement().normalize();
 
-            //System.out.println("\nElemento corrente :" + nNode.getNodeName());
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
+        // Obter a raiz do documento
+        Element root = doc.getDocumentElement();
 
+        // Percorrer os elementos filhos da raiz
+        NodeList nodeList = root.getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                Log.i("XML", "" + element.getNodeName() + " position: " + i);
+                if(element.getNodeName().equals("Speech")){
+                    list.add(new Speech(
+                            element.getElementsByTagName("direction").item(0).getTextContent(),
+                            element.getElementsByTagName("text").item(0).getTextContent(),
+                            element.getElementsByTagName("audio").item(0).getTextContent()));
+                } else if(element.getNodeName().equals("Audio")){
+                    list.add(new Audio(
+                            element.getElementsByTagName("path").item(0).getTextContent(),
+                            element.getElementsByTagName("direction").item(0).getTextContent())
+                    );
+                } else if(element.getNodeName().equals("Question_version_1")){
+                    String[] Arraywords = element.getElementsByTagName("words").item(0).getTextContent().split(",");
+                    List<String> words = new ArrayList<>();
+                    for (String word : Arraywords) {
+                        words.add(word.trim());
+                    }
+                    list.add(new Question_version_1(words));
+                } else if(element.getNodeName().equals("Question_version_2")){
+                    String[] Arraywords = element.getElementsByTagName("words").item(0).getTextContent().split(",");
+                    List<String> words = new ArrayList<>();
+                    for (String word : Arraywords) {
+                        words.add(word.trim());
+                    }
+                    list.add(new Question_version_2( element.getElementsByTagName("text").item(0).getTextContent(),words ));
+                }
             }
         }
-        */
-        Node node = nList.item(0);
-        Element element = (Element) node;
 
-        Inters_of_dialogues n = new Speech(
-                element.getElementsByTagName("direction").item(0).getTextContent(),
-                element.getElementsByTagName("text").item(0).getTextContent(),
-                element.getElementsByTagName("audio").item(0).getTextContent());
-
-
-
-        return n;
+        return list;
     }
 
 }
